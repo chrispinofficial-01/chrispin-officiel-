@@ -6,33 +6,69 @@
 <title>Chrispin Officiel — Vérification de documents</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-:root{--ink:#15141D;--muted:#77758B;--purple:#3A30E6;--lav:#A0A5F6;--dark:#383653;--pink:#D7AAE7;--peach:#E1BEBC;--bg:#F1EFF9;--line:#E8E5F0;--green:#16845D;--red:#C13F58;--shadow:0 18px 55px rgba(56,54,83,.09)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(ellipse at 8% 5%,#dcdafa 0,transparent 29%),radial-gradient(ellipse at 94% 17%,#f1dff4 0,transparent 26%),#F8F7FC;color:var(--ink);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;transition:transform .2s,box-shadow .2s,filter .2s}button:hover{transform:translateY(-2px);filter:brightness(1.04)}
-.topbar{max-width:1240px;margin:auto;padding:22px 30px;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#3A30E6,#A0A5F6 72%,#D7AAE7);display:grid;place-items:center;color:#fff;font-size:15px;font-weight:900;box-shadow:0 8px 22px #3A30E633}.brand-name{font-size:14px;font-weight:900;letter-spacing:-.4px}.brand-sub{font-size:9px;letter-spacing:1.7px;color:var(--muted);margin-top:4px}.top-pill{font-size:10px;font-weight:700;color:#383653;background:#fff;border:1px solid #e9e6f1;padding:10px 14px;border-radius:30px;box-shadow:0 4px 16px #38365308}.top-pill i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#36b887;margin-right:7px}
-main{max-width:1240px;margin:auto;padding:10px 30px 58px}.hero{min-height:310px;position:relative;overflow:hidden;border-radius:30px;padding:44px 48px;background:linear-gradient(112deg,#242052 0%,#3830A5 48%,#7779E8 100%);color:#fff;box-shadow:0 24px 65px #3A30E62b}.hero:before{content:"";position:absolute;width:390px;height:390px;border-radius:50%;right:-55px;top:-235px;border:1px solid #ffffff35;box-shadow:0 0 0 28px #ffffff0b,0 0 0 62px #ffffff09,0 0 0 98px #ffffff07}.hero:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:235px;bottom:-205px;background:linear-gradient(135deg,#D7AAE744,#A0A5F633);filter:blur(2px)}.hero-copy{position:relative;z-index:2;max-width:650px}.eyebrow{font-size:9px;font-weight:800;letter-spacing:2.2px;color:#dcdcff}.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.08;letter-spacing:-2.5px;margin:17px 0 14px;font-weight:800}.hero p{font-size:13px;line-height:1.85;color:#e5e3ff;max-width:530px;margin:0}.hero-chip{display:inline-flex;align-items:center;gap:8px;margin-top:23px;border:1px solid #ffffff35;background:#ffffff17;border-radius:30px;padding:10px 14px;font-size:10px;font-weight:700}.hero-chip:before{content:"";width:7px;height:7px;background:#70e0b2;border-radius:50%;box-shadow:0 0 12px #70e0b2}
-.hero-art{position:absolute;z-index:1;right:45px;top:47px;width:300px;height:215px;border-radius:23px;background:linear-gradient(145deg,#ffffff26,#ffffff0b);border:1px solid #ffffff35;backdrop-filter:blur(12px);padding:17px;transform:rotate(3deg);box-shadow:0 22px 55px #17144355}.art-top{display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:9px;font-weight:700}.art-dots{display:flex;gap:4px}.art-dots b{width:5px;height:5px;border-radius:50%;background:#ffffff9c}.art-number{font-size:29px;font-weight:800;margin-top:23px;letter-spacing:-1px}.art-caption{font-size:8px;color:#e3e0ff;margin-top:4px}.art-bars{display:flex;align-items:end;gap:8px;height:58px;margin-top:15px}.art-bars span{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#D7AAE7,#A0A5F6);opacity:.9}.art-bars span:nth-child(1){height:35%}.art-bars span:nth-child(2){height:62%}.art-bars span:nth-child(3){height:48%}.art-bars span:nth-child(4){height:83%}.art-bars span:nth-child(5){height:65%}.art-bars span:nth-child(6){height:100%}
-.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:23px;align-items:stretch}.card{background:#ffffffeb;border:1px solid #fff;border-radius:23px;padding:27px;box-shadow:var(--shadow);margin:0 0 18px;backdrop-filter:blur(12px)}h2{font-size:17px;letter-spacing:-.55px;margin:0 0 9px;font-weight:800}.muted{color:var(--muted);font-size:11px;line-height:1.7}.panel-heading{display:flex;gap:13px;align-items:center;margin-bottom:21px}.panel-icon{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#F1EFF9,#e9e5fb);color:var(--purple);display:grid;place-items:center;font-size:19px;flex-shrink:0}.panel-heading p{margin:4px 0 0}.field{margin:15px 0}label{display:block;font-size:10px;letter-spacing:.55px;font-weight:800;margin:12px 0 8px;color:#383653}input,select{display:block;width:100%;height:48px;padding:0 14px;border:1px solid #e7e3ef;border-radius:12px;background:#fbfaff;color:var(--ink);font-size:12px;outline:none;transition:.2s}input:focus,select:focus{border-color:#A0A5F6;box-shadow:0 0 0 4px #A0A5F622}button{border:0;border-radius:12px;padding:13px 17px;font-size:11px;font-weight:800}button#loginBtn,button#saveBtn{background:linear-gradient(105deg,#3A30E6,#7779E8);color:#fff;box-shadow:0 9px 22px #3A30E632;width:100%;margin-top:13px}button.secondary{background:#F1EFF9;color:#3A30E6}button.danger{background:#fff0f1;color:var(--red)}.msg{padding:12px 14px;border-radius:12px;background:#F1EFF9;margin:12px 0;font-size:11px;line-height:1.6;overflow-wrap:anywhere}.msg.good{background:#eaf8f1;color:#16744f}.msg.bad{background:#fff0f1;color:#ad3048}.hidden{display:none!important}
-.side-card{background:linear-gradient(145deg,#F1EFF9,#F9F5FC);border:1px solid #eae6f3;border-radius:18px;padding:20px;margin-top:20px}.side-card h3{font-size:12px;margin:0 0 7px}.side-card p{font-size:10px;color:var(--muted);line-height:1.7;margin:0}.feature-list{display:grid;gap:17px;margin-top:20px}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:34px;height:34px;border-radius:11px;background:#F1EFF9;color:#3A30E6;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0}.feature strong{display:block;font-size:11px;margin:2px 0 4px}.feature small{display:block;font-size:10px;color:var(--muted);line-height:1.6}
-#adminBox{margin-top:24px}.admin-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:0 0 17px;flex-wrap:wrap}.admin-head h2{font-size:23px;letter-spacing:-1px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.doc{border:1px solid var(--line);padding:14px;border-radius:14px;margin:10px 0;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;background:#fff}.doc strong{display:block;font-size:11px}.doc small{color:var(--muted);font-size:10px}.doc button{width:auto!important;background:#F1EFF9;color:#3A30E6;padding:9px 12px;font-size:10px}.qr{text-align:center}.qr img{display:block;width:220px;height:220px;max-width:100%;margin:14px auto;background:#fff;object-fit:contain;padding:9px;border:1px solid var(--line);border-radius:14px}.qr a{display:block;overflow-wrap:anywhere;margin:12px 0;color:var(--purple);font-size:11px}.verify{font-size:13px;line-height:1.8}.valid{color:var(--green);font-weight:800}.invalid{color:var(--red);font-weight:800}#verifyBox{max-width:760px;margin:25px auto}.verify-title{display:flex;gap:12px;align-items:center;margin-bottom:18px}.verify-mark{width:42px;height:42px;border-radius:14px;background:#eaf8f1;color:var(--green);display:grid;place-items:center;font-size:20px}footer{text-align:center;color:#9692A8;padding:26px;font-size:9px;letter-spacing:.4px}.whatsapp{position:fixed;right:22px;bottom:22px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;box-shadow:0 8px 25px #25D36655;z-index:100;animation:whatsPulse 2.6s infinite}.whatsapp svg{width:30px;height:30px;fill:#fff}.whatsapp:hover{transform:scale(1.08)}@keyframes whatsPulse{0%,100%{box-shadow:0 8px 25px #25D36655}50%{box-shadow:0 8px 34px #25D36688}}
-@media(max-width:850px){.hero-art{right:25px;opacity:.5}.layout,.admin-grid{grid-template-columns:1fr}.hero{padding:36px 30px}.hero-copy{max-width:580px}.hero-art{transform:scale(.85) rotate(3deg);transform-origin:top right}}
-@media(max-width:560px){.topbar{padding:17px 16px}.top-pill{font-size:8px;padding:8px 10px}main{padding:8px 15px 45px}.hero{padding:30px 23px;min-height:285px;border-radius:23px}.hero h1{font-size:34px;letter-spacing:-1.6px}.hero p{font-size:11px;max-width:100%}.hero-art{right:-45px;top:125px;opacity:.22;transform:scale(.72) rotate(3deg)}.card{padding:21px;border-radius:19px}.layout{gap:15px}.whatsapp{width:54px;height:54px;right:15px;bottom:15px}}
+:root{--sky:#75d5ff;--sky2:#b9edff;--mauve:#b99aff;--purple:#8964e8;--ink:#25233a;--muted:#77758e;--green:#159b69;--red:#d84c70;--line:#e9e7f5;--glass:rgba(255,255,255,.82)}
+*{box-sizing:border-box}
+html{min-height:100%;background:#f7f8ff}
+body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:radial-gradient(ellipse at 8% 4%,rgba(117,213,255,.28),transparent 34%),radial-gradient(ellipse at 92% 12%,rgba(185,154,255,.28),transparent 35%),linear-gradient(145deg,#fbfdff 0%,#f5f3ff 52%,#f9fbff 100%);min-height:100vh}
+header{position:relative;overflow:hidden;padding:42px 20px 48px;background:linear-gradient(118deg,#a9e9ff 0%,#b9c9ff 48%,#d6b5f4 100%);color:#27243d;border-bottom:1px solid rgba(255,255,255,.8)}
+header:before,header:after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.23);pointer-events:none}
+header:before{width:260px;height:260px;right:-60px;top:-145px}header:after{width:190px;height:190px;left:55%;bottom:-145px}
+header .inner,main{max-width:940px;margin:auto;position:relative;z-index:1}
+header .inner{text-align:center}
+h1{margin:0;font-size:clamp(1.8rem,5vw,2.65rem);font-weight:900;letter-spacing:-.055em;background:linear-gradient(95deg,#318fc9 0%,#7772dc 48%,#a35fbd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{margin:10px 0 0;color:#575273;font-size:.98rem;font-weight:600;letter-spacing:.025em}
+main{padding:26px 18px 112px}
+.card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.95);border-radius:23px;padding:23px;margin:17px 0;box-shadow:0 14px 40px rgba(111,102,174,.10),0 2px 8px rgba(87,151,194,.06)}
+h2{font-size:1.22rem;font-weight:800;letter-spacing:-.025em;margin:0 0 15px;background:linear-gradient(95deg,#48acd8,#8875df 58%,#ad72c5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:160px}
+label{display:block;font-weight:700;font-size:.88rem;margin:13px 0 6px;color:#514d70}
+input,select,button{font:inherit;padding:13px 14px;border-radius:13px;border:1px solid #e1e3f2;width:100%;outline:none}
+input,select{background:rgba(255,255,255,.9);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{border-color:#9b9ce9;box-shadow:0 0 0 4px rgba(151,157,238,.16)}
+button{background:linear-gradient(105deg,#72d6f5 0%,#9da9f5 52%,#bd91e8 100%);color:#252744;border:0;font-weight:800;cursor:pointer;margin-top:12px;box-shadow:0 8px 18px rgba(126,145,225,.2);transition:transform .18s,filter .18s}
+button:hover{transform:translateY(-1px);filter:saturate(1.12)}button:active{transform:translateY(0)}
+button.secondary{background:linear-gradient(105deg,#e1f7ff,#eee8ff);color:#5d5b91;border:1px solid #e4e2f5;box-shadow:none}
+button.danger{background:linear-gradient(105deg,#f7b8cf,#e98aa8);color:#65263f}
+.muted{color:var(--muted);font-size:.9rem}.hidden{display:none!important}
+.msg{padding:13px 15px;border-radius:14px;background:#edf7ff;margin:11px 0;overflow-wrap:anywhere}
+.msg.good{background:#e8f9f1;color:#126c4c}.msg.bad{background:#fff0f4;color:#9c3153}
+.doc{border:1px solid var(--line);background:rgba(255,255,255,.72);padding:14px;border-radius:15px;margin:11px 0;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.doc strong{display:block;color:#57549a}.doc small{color:var(--muted)}.doc button{max-width:150px}
+.qr{text-align:center}.qr img{display:block;width:220px;height:220px;max-width:100%;margin:14px auto;background:#fff;border-radius:12px;padding:8px;box-shadow:0 5px 20px #34305a12}
+.verify{font-size:1.08rem}.valid{color:var(--green);font-weight:800}.invalid{color:var(--red);font-weight:800}
+footer{text-align:center;color:var(--muted);padding:26px 18px 105px;font-size:.85rem}
+.social-dock{position:fixed;z-index:20;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.social-dock a{display:flex;align-items:center;gap:9px;padding:12px 17px;border-radius:999px;text-decoration:none;font-size:.86rem;font-weight:800;box-shadow:0 9px 24px rgba(67,71,125,.18);transition:transform .2s,box-shadow .2s}
+.social-dock a:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(67,71,125,.24)}
+.channel-link{background:linear-gradient(105deg,#a9eaff,#c4b5ff);color:#35345f;border:1px solid rgba(255,255,255,.85)}
+.support-link{background:#20c76a;color:#fff;border:1px solid rgba(255,255,255,.8)}
+.social-dock svg{width:20px;height:20px;flex:0 0 20px}
+@media(max-width:560px){header{padding:34px 16px 39px}main{padding:18px 12px 120px}.card{padding:18px;border-radius:19px}.social-dock{left:12px;right:12px;bottom:12px;align-items:stretch}.social-dock a{justify-content:center;padding:11px 12px;font-size:.82rem}footer{padding-bottom:130px}}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="brand"><div class="brand-mark">CO</div><div><div class="brand-name">CHRISPIN OFFICIEL</div><div class="brand-sub">DOCUMENT VERIFICATION</div></div></div><div class="top-pill"><i></i> Secure verification portal</div></header>
+<header><div class="inner"><h1>CHRISPIN OFFICIEL</h1><p>Document Verification System</p></div></header>
+<div class="social-dock" aria-label="Liens WhatsApp">
+ <a class="channel-link" href="https://whatsapp.com/channel/0029Vadw74J545uoCdV5L91m" target="_blank" rel="noopener noreferrer" aria-label="Rejoindre la chaîne WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a8.7 8.7 0 0 0-7.45 13.2L3.4 20.6l4.52-1.12A8.7 8.7 0 1 0 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.4c.2-.45.42-.46.7-.46h.45c.15 0 .35.04.48.36l.67 1.6c.08.2.08.36-.04.53l-.5.62c-.14.16-.2.31-.07.54.13.23.59.97 1.28 1.57.88.77 1.62 1.01 1.85 1.12.23.11.37.09.51-.08l.7-.82c.16-.19.33-.22.55-.13l1.52.72c.23.11.38.17.43.27.05.1.05.58-.15 1.12-.2.54-1.16 1.03-1.6 1.08-.42.05-.95.08-1.54-.1-.36-.11-.82-.27-1.42-.54-2.5-1.08-4.13-3.63-4.25-3.8-.12-.17-1-1.33-1-2.54 0-1.21.63-1.8.86-2.06Z" fill="currentColor"/></svg>
+  Rejoindre notre chaîne WhatsApp
+ </a>
+ <a class="support-link" href="https://wa.me/256770674075" target="_blank" rel="noopener noreferrer" aria-label="Contacter le service client sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a8.7 8.7 0 0 0-7.45 13.2L3.4 20.6l4.52-1.12A8.7 8.7 0 1 0 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 8.5c.2-.4.4-.4.65-.4h.4c.14 0 .31.04.43.32l.62 1.48c.07.18.07.33-.04.49l-.46.56c-.13.15-.18.28-.06.49.12.21.54.9 1.17 1.45.81.71 1.49.93 1.7 1.03.21.1.34.08.47-.07l.64-.75c.15-.17.3-.2.5-.12l1.4.66c.21.1.35.16.4.25.05.09.05.53-.14 1.03-.18.5-1.06.95-1.47.99-.39.05-.87.07-1.42-.09-.33-.1-.75-.25-1.3-.5-2.3-.99-3.8-3.34-3.91-3.5-.11-.16-.92-1.22-.92-2.33 0-1.11.58-1.65.79-1.89Z" fill="currentColor"/></svg>
+  Contacter le service client
+ </a>
+</div>
 <main>
-<section class="hero"><div class="hero-copy"><div class="eyebrow">TRUST · SECURITY · VERIFICATION</div><h1>Document verification.<br>Made with confidence.</h1><p>Une plateforme de consultation et de vérification des documents enregistrés dans le registre numérique Chrispin Officiel.</p><div class="hero-chip">Secure document registry</div></div><div class="hero-art"><div class="art-top"><span>VERIFICATION OVERVIEW</span><span class="art-dots"><b></b><b></b><b></b></span></div><div class="art-number">CO / 2026</div><div class="art-caption">DOCUMENT REGISTRY · SECURE ACCESS</div><div class="art-bars"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></section>
 <section id="verifyBox" class="card hidden"><h2>Vérification du document</h2><div id="verifyResult" class="verify">Vérification en cours…</div></section>
-<div class="layout" id="publicLayout"><section id="authBox" class="card"><div class="panel-heading"><div class="panel-icon">↗</div><div><h2>Accès administrateur</h2><p class="muted">Connectez-vous pour gérer le registre documentaire.</p></div></div><div class="field"><label>ADRESSE E-MAIL</label><input id="email" type="email" autocomplete="username" placeholder="Votre adresse e-mail"></div><div class="field"><label>MOT DE PASSE</label><input id="password" type="password" autocomplete="current-password" placeholder="Votre mot de passe"></div><button id="loginBtn">Se connecter →</button><div id="authMsg"></div><div class="side-card"><h3>Accès sécurisé</h3><p>Cette zone est réservée à l'administration autorisée de la plateforme.</p></div></section><aside class="card"><div class="panel-heading"><div class="panel-icon">✦</div><div><h2>Une vérification simple</h2><p class="muted">Le parcours de consultation des documents</p></div></div><div class="feature-list"><div class="feature"><div class="feature-icon">01</div><div><strong>Enregistrement</strong><small>Les documents sont ajoutés au registre numérique.</small></div></div><div class="feature"><div class="feature-icon">02</div><div><strong>QR code unique</strong><small>Un code individuel permet d'accéder à la page de vérification.</small></div></div><div class="feature"><div class="feature-icon">03</div><div><strong>Consultation</strong><small>Le résultat affiche le statut et les informations disponibles.</small></div></div></div><div class="side-card"><h3>Besoin d'assistance ?</h3><p>Contactez le support Chrispin Officiel via le bouton WhatsApp.</p></div></aside></div>
+<section id="authBox" class="card"><h2>Connexion administrateur</h2><p class="muted">Connectez-vous pour enregistrer et gérer les documents.</p><label>Adresse e-mail</label><input id="email" type="email" autocomplete="username" placeholder="Votre adresse Gmail"><label>Mot de passe</label><input id="password" type="password" autocomplete="current-password" placeholder="Mot de passe"><button id="loginBtn">Se connecter</button><div id="authMsg"></div></section>
 <section id="adminBox" class="hidden">
 <div class="card"><div class="row" style="align-items:center"><div><h2>Administration</h2><p id="who" class="muted"></p></div><div><button class="secondary" id="logoutBtn">Déconnexion</button></div></div></div>
 <div class="card"><h2>Ajouter un document</h2><label>Numéro du document</label><input id="docNum" placeholder="Ex. DOC-2026-001"><label>Nom / titre du document</label><input id="docName" placeholder="Nom du document"><label>Statut</label><select id="docStatus"><option value="Valid">Valide</option><option value="Suspended">Suspendu</option><option value="Cancelled">Annulé</option></select><button id="saveBtn">Enregistrer le document</button><div id="saveMsg"></div></div>
 <div class="card"><h2>Documents enregistrés</h2><div id="documentsList" class="muted">Chargement…</div></div>
-<div id="qrCard" class="card qr hidden"><h2>QR Code du document</h2><div id="qrCanvas"></div><p id="qrLink" class="muted"></p><button id="downloadQr" type="button">Télécharger le QR code ↓</button><button class="secondary" id="closeQr">Fermer</button></div>
+<div id="qrCard" class="card qr hidden"><h2>QR Code du document</h2><div id="qrCanvas"></div><p id="qrLink" class="muted"></p><button class="secondary" id="closeQr">Fermer</button></div>
 </section>
 </main>
-<footer>© <span id="year"></span> Chrispin Officiel · Document Verification System</footer>
-<a class="whatsapp" href="https://wa.me/256770674075?text=Bonjour%20Chrispin%20Officiel%2C%20j'ai%20besoin%20d'assistance." target="_blank" rel="noopener" aria-label="Contacter Chrispin Officiel sur WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 3C8.86 3 3.04 8.81 3.04 15.97c0 2.29.6 4.53 1.74 6.5L3 29l6.7-1.75a12.9 12.9 0 0 0 6.31 1.65h.01C23.17 28.9 29 23.08 29 15.92 29 12.45 27.65 9.19 25.2 6.73A12.9 12.9 0 0 0 16.02 3zm0 23.72h-.01a10.75 10.75 0 0 1-5.48-1.5l-.39-.23-3.98 1.04 1.06-3.88-.25-.4a10.72 10.72 0 0 1-1.64-5.78c0-5.91 4.81-10.72 10.73-10.72 2.86 0 5.55 1.12 7.57 3.14a10.65 10.65 0 0 1 3.13 7.58c0 5.91-4.81 10.73-10.73 10.73zm5.89-8.04c-.32-.16-1.88-.93-2.17-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.89-1.78-2.21-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.61-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.66s1.14 3.09 1.3 3.3c.16.21 2.24 3.42 5.43 4.8.76.33 1.35.53 1.81.68.76.24 1.45.21 2 .13.61-.09 1.88-.77 2.15-1.51.26-.74.26-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></svg></a>
+<footer>Chrispin Officiel · Vérification de documents</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -46,7 +82,6 @@ async function verify(){
  const token=new URLSearchParams(location.search).get('verify');
  if(!token)return;
  $('verifyBox').classList.remove('hidden');
- $('publicLayout').classList.add('hidden');
  $('authBox').classList.add('hidden');
  $('adminBox').classList.add('hidden');
  try{
@@ -67,7 +102,6 @@ function escapeHtml(s){
  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 async function showAdmin(user){
- $('publicLayout').classList.add('hidden');
  $('authBox').classList.add('hidden');
  $('adminBox').classList.remove('hidden');
  $('who').textContent='Connecté : '+user.email;
@@ -94,53 +128,30 @@ async function loadDocs(){
  });
 }
 
-/* QR : le lien est créé avant l'image. Si le service QR est indisponible, le lien reste utilisable. */
-let currentQrImage=null;
+/* QR Code : l'image est fournie par un service externe, sans dépendre de la bibliothèque QRCode précédente. */
 function makeQr(d){
- const card=$('qrCard');
- const canvasBox=$('qrCanvas');
- const linkBox=$('qrLink');
- card.classList.remove('hidden');
- canvasBox.textContent='';
- linkBox.textContent='';
- if(!d || !d.verification_token){
-  canvasBox.textContent='Jeton de vérification absent pour ce document.';
+ const token=d.verification_token;
+ $('qrCard').classList.remove('hidden');
+ $('qrCanvas').innerHTML='';
+ $('qrLink').textContent='';
+ if(!token){
+  $('qrCanvas').textContent='Erreur : ce document ne possède pas de jeton de vérification.';
   return;
  }
- const verificationUrl=new URL(location.href);
- verificationUrl.search='';
- verificationUrl.hash='';
- verificationUrl.searchParams.set('verify',d.verification_token);
- const url=verificationUrl.toString();
-
- const link=document.createElement('a');
- link.href=url;
- link.textContent='Ouvrir la vérification du document';
- link.target='_blank';
- link.rel='noopener noreferrer';
- linkBox.appendChild(link);
- const urlText=document.createElement('div');
- urlText.textContent=url;
- urlText.style.fontSize='12px';
- urlText.style.marginTop='8px';
- urlText.style.overflowWrap='anywhere';
- linkBox.appendChild(urlText);
-
+ const url=location.origin+location.pathname+'?verify='+encodeURIComponent(token);
  const img=document.createElement('img');
- currentQrImage=img;
  img.alt='QR Code de vérification';
  img.width=220;
  img.height=220;
- img.onerror=()=>{
-  img.remove();
-  const warning=document.createElement('p');
-  warning.className='msg bad';
-  warning.textContent='Image QR indisponible. Le lien de vérification ci-dessus reste utilisable.';
-  canvasBox.appendChild(warning);
- };
- canvasBox.appendChild(img);
+ img.referrerPolicy='no-referrer';
  img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
+ img.onload=()=>{$('qrCanvas').appendChild(img);};
+ img.onerror=()=>{
+  $('qrCanvas').textContent='Le service de génération du QR Code ne répond pas. Vérifie ta connexion Internet.';
+ };
+ $('qrLink').textContent=url;
 }
+
 $('loginBtn').onclick=async()=>{
  const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
  if(error){msg($('authMsg'),error.message);return;}
@@ -159,12 +170,7 @@ $('saveBtn').onclick=async()=>{
  await loadDocs();
  makeQr(data);
 };
-$('downloadQr').onclick=async()=>{
- if(!currentQrImage || !currentQrImage.src){alert('Le QR code n’est pas encore prêt.');return;}
- try{const response=await fetch(currentQrImage.src);if(!response.ok)throw new Error('QR indisponible');const blob=await response.blob();const objectUrl=URL.createObjectURL(blob);const a=document.createElement('a');a.href=objectUrl;a.download='Chrispin-Officiel-QR-Code.png';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(objectUrl);}catch(e){window.open(currentQrImage.src,'_blank','noopener');}
-};
 $('closeQr').onclick=()=>$('qrCard').classList.add('hidden');
-$('year').textContent=new Date().getFullYear();
 
 (async()=>{
  if(new URLSearchParams(location.search).has('verify')){await verify();return;}

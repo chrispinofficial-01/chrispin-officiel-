@@ -1,340 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Chrispin Officiel — Vérification de documents</title>
-
 <style>
-:root{
-  --navy:#102e56;
-  --blue:#2366d1;
-  --light:#f4f7fc;
-  --text:#17263b;
-  --muted:#718096;
-  --green:#16834b;
-  --red:#b42332;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,system-ui,sans-serif;
-  background:var(--light);
-  color:var(--text);
-}
-header{
-  background:#fff;
-  border-bottom:1px solid #e4eaf2;
-  padding:18px 16px;
-}
-.header-inner{
-  max-width:850px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  gap:13px;
-}
-.logo-placeholder{
-  width:48px;
-  height:48px;
-  border:1px dashed #9aacc3;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--navy);
-  font-weight:800;
-  font-size:13px;
-  flex-shrink:0;
-  background:#f5f8fd;
-}
-.brand h1{
-  margin:0;
-  color:var(--navy);
-  font-size:19px;
-}
-.brand p{
-  margin:5px 0 0;
-  color:var(--muted);
-  font-size:12px;
-}
-main{
-  max-width:850px;
-  margin:auto;
-  padding:24px 16px;
-}
-.card{
-  background:#fff;
-  border:1px solid #e5eaf2;
-  border-radius:18px;
-  padding:22px;
-  margin:15px 0;
-  box-shadow:0 8px 25px rgba(16,46,86,.045);
-}
-.verify-card{
-  max-width:600px;
-  margin:24px auto;
-  padding:25px 21px;
-}
-.security-label{
-  color:var(--blue);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  margin-bottom:13px;
-}
-h2{
-  color:var(--navy);
-  font-size:20px;
-  margin:0 0 17px;
-}
-.verify-status{
-  border-radius:13px;
-  padding:17px;
-  margin:18px 0;
-  font-weight:800;
-  font-size:17px;
-  text-align:center;
-}
-.valid{
-  color:#126c3d;
-  background:#eaf8ef;
-}
-.invalid{
-  color:#a52230;
-  background:#fff0f0;
-}
-.details{
-  border:1px solid #e8edf4;
-  border-radius:13px;
-  overflow:hidden;
-  margin-top:18px;
-}
-.detail-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:14px;
-  border-bottom:1px solid #edf1f6;
-  font-size:14px;
-}
-.detail-row:last-child{border-bottom:0}
-.detail-row span:first-child{color:var(--muted)}
-.detail-row strong{
-  color:var(--navy);
-  text-align:right;
-  overflow-wrap:anywhere;
-}
-.verified-note{
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  margin-top:20px;
-  line-height:1.6;
-}
-label{
-  display:block;
-  font-weight:600;
-  font-size:14px;
-  margin:12px 0 6px;
-}
-input,select,button{
-  font:inherit;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid #ccd7e5;
-  width:100%;
-}
-button{
-  background:var(--blue);
-  color:white;
-  border:0;
-  font-weight:700;
-  cursor:pointer;
-  margin-top:12px;
-}
-button.secondary{
-  background:#eaf1fb;
-  color:var(--navy);
-}
-button.danger{background:var(--red)}
-.muted{color:var(--muted);font-size:13px}
-.hidden{display:none!important}
-.msg{
-  padding:12px;
-  border-radius:10px;
-  background:#eef5ff;
-  margin:10px 0;
-  overflow-wrap:anywhere;
-}
-.msg.good{background:#e9f8ef;color:#126c3d}
-.msg.bad{background:#fff0f0;color:#9c202b}
-.row{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.row>*{flex:1;min-width:150px}
-.doc{
-  border:1px solid #e5edf7;
-  padding:13px;
-  border-radius:12px;
-  margin:10px 0;
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-.doc strong{display:block;color:var(--navy)}
-.doc small{color:var(--muted)}
-.qr{text-align:center}
-.qr img{
-  display:block;
-  width:220px;
-  height:220px;
-  max-width:100%;
-  margin:12px auto;
-  background:#fff;
-  object-fit:contain;
-}
-.qr a{
-  display:block;
-  overflow-wrap:anywhere;
-  margin:12px 0;
-  color:var(--blue);
-}
-.whatsapp-button{
-  position:fixed;
-  right:18px;
-  bottom:20px;
-  z-index:1000;
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  background:#20bd5a;
-  color:white;
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:29px;
-  box-shadow:0 5px 18px rgba(0,0,0,.2);
-  animation:softFade 2.4s ease-in-out infinite;
-}
-@keyframes softFade{
-  0%,100%{opacity:.65;transform:scale(1)}
-  50%{opacity:1;transform:scale(1.06)}
-}
-footer{
-  text-align:center;
-  color:var(--muted);
-  padding:25px 15px;
-  font-size:12px;
-}
-@media(max-width:480px){
-  main{padding:16px 12px}
-  .card{padding:18px}
-  .verify-card{padding:20px 16px}
-  .brand h1{font-size:17px}
-  .detail-row{font-size:13px}
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--ink:#15141D;--muted:#77758B;--purple:#3A30E6;--lav:#A0A5F6;--dark:#383653;--pink:#D7AAE7;--peach:#E1BEBC;--bg:#F1EFF9;--line:#E8E5F0;--green:#16845D;--red:#C13F58;--shadow:0 18px 55px rgba(56,54,83,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(ellipse at 8% 5%,#dcdafa 0,transparent 29%),radial-gradient(ellipse at 94% 17%,#f1dff4 0,transparent 26%),#F8F7FC;color:var(--ink);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;transition:transform .2s,box-shadow .2s,filter .2s}button:hover{transform:translateY(-2px);filter:brightness(1.04)}
+.topbar{max-width:1240px;margin:auto;padding:22px 30px;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#3A30E6,#A0A5F6 72%,#D7AAE7);display:grid;place-items:center;color:#fff;font-size:15px;font-weight:900;box-shadow:0 8px 22px #3A30E633}.brand-name{font-size:14px;font-weight:900;letter-spacing:-.4px}.brand-sub{font-size:9px;letter-spacing:1.7px;color:var(--muted);margin-top:4px}.top-pill{font-size:10px;font-weight:700;color:#383653;background:#fff;border:1px solid #e9e6f1;padding:10px 14px;border-radius:30px;box-shadow:0 4px 16px #38365308}.top-pill i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#36b887;margin-right:7px}
+main{max-width:1240px;margin:auto;padding:10px 30px 58px}.hero{min-height:310px;position:relative;overflow:hidden;border-radius:30px;padding:44px 48px;background:linear-gradient(112deg,#242052 0%,#3830A5 48%,#7779E8 100%);color:#fff;box-shadow:0 24px 65px #3A30E62b}.hero:before{content:"";position:absolute;width:390px;height:390px;border-radius:50%;right:-55px;top:-235px;border:1px solid #ffffff35;box-shadow:0 0 0 28px #ffffff0b,0 0 0 62px #ffffff09,0 0 0 98px #ffffff07}.hero:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:235px;bottom:-205px;background:linear-gradient(135deg,#D7AAE744,#A0A5F633);filter:blur(2px)}.hero-copy{position:relative;z-index:2;max-width:650px}.eyebrow{font-size:9px;font-weight:800;letter-spacing:2.2px;color:#dcdcff}.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.08;letter-spacing:-2.5px;margin:17px 0 14px;font-weight:800}.hero p{font-size:13px;line-height:1.85;color:#e5e3ff;max-width:530px;margin:0}.hero-chip{display:inline-flex;align-items:center;gap:8px;margin-top:23px;border:1px solid #ffffff35;background:#ffffff17;border-radius:30px;padding:10px 14px;font-size:10px;font-weight:700}.hero-chip:before{content:"";width:7px;height:7px;background:#70e0b2;border-radius:50%;box-shadow:0 0 12px #70e0b2}
+.hero-art{position:absolute;z-index:1;right:45px;top:47px;width:300px;height:215px;border-radius:23px;background:linear-gradient(145deg,#ffffff26,#ffffff0b);border:1px solid #ffffff35;backdrop-filter:blur(12px);padding:17px;transform:rotate(3deg);box-shadow:0 22px 55px #17144355}.art-top{display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:9px;font-weight:700}.art-dots{display:flex;gap:4px}.art-dots b{width:5px;height:5px;border-radius:50%;background:#ffffff9c}.art-number{font-size:29px;font-weight:800;margin-top:23px;letter-spacing:-1px}.art-caption{font-size:8px;color:#e3e0ff;margin-top:4px}.art-bars{display:flex;align-items:end;gap:8px;height:58px;margin-top:15px}.art-bars span{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#D7AAE7,#A0A5F6);opacity:.9}.art-bars span:nth-child(1){height:35%}.art-bars span:nth-child(2){height:62%}.art-bars span:nth-child(3){height:48%}.art-bars span:nth-child(4){height:83%}.art-bars span:nth-child(5){height:65%}.art-bars span:nth-child(6){height:100%}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:23px;align-items:stretch}.card{background:#ffffffeb;border:1px solid #fff;border-radius:23px;padding:27px;box-shadow:var(--shadow);margin:0 0 18px;backdrop-filter:blur(12px)}h2{font-size:17px;letter-spacing:-.55px;margin:0 0 9px;font-weight:800}.muted{color:var(--muted);font-size:11px;line-height:1.7}.panel-heading{display:flex;gap:13px;align-items:center;margin-bottom:21px}.panel-icon{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#F1EFF9,#e9e5fb);color:var(--purple);display:grid;place-items:center;font-size:19px;flex-shrink:0}.panel-heading p{margin:4px 0 0}.field{margin:15px 0}label{display:block;font-size:10px;letter-spacing:.55px;font-weight:800;margin:12px 0 8px;color:#383653}input,select{display:block;width:100%;height:48px;padding:0 14px;border:1px solid #e7e3ef;border-radius:12px;background:#fbfaff;color:var(--ink);font-size:12px;outline:none;transition:.2s}input:focus,select:focus{border-color:#A0A5F6;box-shadow:0 0 0 4px #A0A5F622}button{border:0;border-radius:12px;padding:13px 17px;font-size:11px;font-weight:800}button#loginBtn,button#saveBtn{background:linear-gradient(105deg,#3A30E6,#7779E8);color:#fff;box-shadow:0 9px 22px #3A30E632;width:100%;margin-top:13px}button.secondary{background:#F1EFF9;color:#3A30E6}button.danger{background:#fff0f1;color:var(--red)}.msg{padding:12px 14px;border-radius:12px;background:#F1EFF9;margin:12px 0;font-size:11px;line-height:1.6;overflow-wrap:anywhere}.msg.good{background:#eaf8f1;color:#16744f}.msg.bad{background:#fff0f1;color:#ad3048}.hidden{display:none!important}
+.side-card{background:linear-gradient(145deg,#F1EFF9,#F9F5FC);border:1px solid #eae6f3;border-radius:18px;padding:20px;margin-top:20px}.side-card h3{font-size:12px;margin:0 0 7px}.side-card p{font-size:10px;color:var(--muted);line-height:1.7;margin:0}.feature-list{display:grid;gap:17px;margin-top:20px}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:34px;height:34px;border-radius:11px;background:#F1EFF9;color:#3A30E6;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0}.feature strong{display:block;font-size:11px;margin:2px 0 4px}.feature small{display:block;font-size:10px;color:var(--muted);line-height:1.6}
+#adminBox{margin-top:24px}.admin-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:0 0 17px;flex-wrap:wrap}.admin-head h2{font-size:23px;letter-spacing:-1px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.doc{border:1px solid var(--line);padding:14px;border-radius:14px;margin:10px 0;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;background:#fff}.doc strong{display:block;font-size:11px}.doc small{color:var(--muted);font-size:10px}.doc button{width:auto!important;background:#F1EFF9;color:#3A30E6;padding:9px 12px;font-size:10px}.qr{text-align:center}.qr img{display:block;width:220px;height:220px;max-width:100%;margin:14px auto;background:#fff;object-fit:contain;padding:9px;border:1px solid var(--line);border-radius:14px}.qr a{display:block;overflow-wrap:anywhere;margin:12px 0;color:var(--purple);font-size:11px}.verify{font-size:13px;line-height:1.8}.valid{color:var(--green);font-weight:800}.invalid{color:var(--red);font-weight:800}#verifyBox{max-width:760px;margin:25px auto}.verify-title{display:flex;gap:12px;align-items:center;margin-bottom:18px}.verify-mark{width:42px;height:42px;border-radius:14px;background:#eaf8f1;color:var(--green);display:grid;place-items:center;font-size:20px}footer{text-align:center;color:#9692A8;padding:26px;font-size:9px;letter-spacing:.4px}.whatsapp{position:fixed;right:22px;bottom:22px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;box-shadow:0 8px 25px #25D36655;z-index:100;animation:whatsPulse 2.6s infinite}.whatsapp svg{width:30px;height:30px;fill:#fff}.whatsapp:hover{transform:scale(1.08)}@keyframes whatsPulse{0%,100%{box-shadow:0 8px 25px #25D36655}50%{box-shadow:0 8px 34px #25D36688}}
+@media(max-width:850px){.hero-art{right:25px;opacity:.5}.layout,.admin-grid{grid-template-columns:1fr}.hero{padding:36px 30px}.hero-copy{max-width:580px}.hero-art{transform:scale(.85) rotate(3deg);transform-origin:top right}}
+@media(max-width:560px){.topbar{padding:17px 16px}.top-pill{font-size:8px;padding:8px 10px}main{padding:8px 15px 45px}.hero{padding:30px 23px;min-height:285px;border-radius:23px}.hero h1{font-size:34px;letter-spacing:-1.6px}.hero p{font-size:11px;max-width:100%}.hero-art{right:-45px;top:125px;opacity:.22;transform:scale(.72) rotate(3deg)}.card{padding:21px;border-radius:19px}.layout{gap:15px}.whatsapp{width:54px;height:54px;right:15px;bottom:15px}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <div class="header-inner">
-    <div class="logo-placeholder">LOGO</div>
-    <div class="brand">
-      <h1>Chrispin Officiel</h1>
-      <p>Document Verification System</p>
-    </div>
-  </div>
-</header>
-
+<header class="topbar"><div class="brand"><div class="brand-mark">CO</div><div><div class="brand-name">CHRISPIN OFFICIEL</div><div class="brand-sub">DOCUMENT VERIFICATION</div></div></div><div class="top-pill"><i></i> Secure verification portal</div></header>
 <main>
-
-<section id="verifyBox" class="card verify-card hidden">
-  <div class="security-label">Vérification officielle</div>
-  <h2>Résultat de vérification</h2>
-  <p class="muted">Consultez les informations enregistrées dans notre registre.</p>
-  <div id="verifyResult">Vérification en cours…</div>
-  <div class="verified-note">
-    Cette vérification est effectuée électroniquement à partir de notre registre.
-    <br>Chrispin Officiel
-  </div>
-</section>
-
-<section id="authBox" class="card">
-  <h2>Connexion administrateur</h2>
-  <p class="muted">Connectez-vous pour enregistrer et gérer les documents.</p>
-  <label>Adresse e-mail</label>
-  <input id="email" type="email" autocomplete="username" placeholder="Votre adresse Gmail">
-  <label>Mot de passe</label>
-  <input id="password" type="password" autocomplete="current-password" placeholder="Mot de passe">
-  <button id="loginBtn">Se connecter</button>
-  <div id="authMsg"></div>
-</section>
-
+<section class="hero"><div class="hero-copy"><div class="eyebrow">TRUST · SECURITY · VERIFICATION</div><h1>Document verification.<br>Made with confidence.</h1><p>Une plateforme de consultation et de vérification des documents enregistrés dans le registre numérique Chrispin Officiel.</p><div class="hero-chip">Secure document registry</div></div><div class="hero-art"><div class="art-top"><span>VERIFICATION OVERVIEW</span><span class="art-dots"><b></b><b></b><b></b></span></div><div class="art-number">CO / 2026</div><div class="art-caption">DOCUMENT REGISTRY · SECURE ACCESS</div><div class="art-bars"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></section>
+<section id="verifyBox" class="card hidden"><h2>Vérification du document</h2><div id="verifyResult" class="verify">Vérification en cours…</div></section>
+<div class="layout" id="publicLayout"><section id="authBox" class="card"><div class="panel-heading"><div class="panel-icon">↗</div><div><h2>Accès administrateur</h2><p class="muted">Connectez-vous pour gérer le registre documentaire.</p></div></div><div class="field"><label>ADRESSE E-MAIL</label><input id="email" type="email" autocomplete="username" placeholder="Votre adresse e-mail"></div><div class="field"><label>MOT DE PASSE</label><input id="password" type="password" autocomplete="current-password" placeholder="Votre mot de passe"></div><button id="loginBtn">Se connecter →</button><div id="authMsg"></div><div class="side-card"><h3>Accès sécurisé</h3><p>Cette zone est réservée à l'administration autorisée de la plateforme.</p></div></section><aside class="card"><div class="panel-heading"><div class="panel-icon">✦</div><div><h2>Une vérification simple</h2><p class="muted">Le parcours de consultation des documents</p></div></div><div class="feature-list"><div class="feature"><div class="feature-icon">01</div><div><strong>Enregistrement</strong><small>Les documents sont ajoutés au registre numérique.</small></div></div><div class="feature"><div class="feature-icon">02</div><div><strong>QR code unique</strong><small>Un code individuel permet d'accéder à la page de vérification.</small></div></div><div class="feature"><div class="feature-icon">03</div><div><strong>Consultation</strong><small>Le résultat affiche le statut et les informations disponibles.</small></div></div></div><div class="side-card"><h3>Besoin d'assistance ?</h3><p>Contactez le support Chrispin Officiel via le bouton WhatsApp.</p></div></aside></div>
 <section id="adminBox" class="hidden">
-
-  <div class="card">
-    <div class="row" style="align-items:center">
-      <div>
-        <h2>Administration</h2>
-        <p id="who" class="muted"></p>
-      </div>
-      <div>
-        <button class="secondary" id="logoutBtn">Déconnexion</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Ajouter un document</h2>
-    <label>Numéro du document</label>
-    <input id="docNum" placeholder="Ex. DOC-2026-001">
-    <label>Nom / titre du document</label>
-    <input id="docName" placeholder="Nom du document">
-    <label>Statut</label>
-    <select id="docStatus">
-      <option value="Valid">Valide</option>
-      <option value="Suspended">Suspendu</option>
-      <option value="Cancelled">Annulé</option>
-    </select>
-    <button id="saveBtn">Enregistrer le document</button>
-    <div id="saveMsg"></div>
-  </div>
-
-  <div class="card">
-    <h2>Documents enregistrés</h2>
-    <div id="documentsList" class="muted">Chargement…</div>
-  </div>
-
-  <div id="qrCard" class="card qr hidden">
-    <h2>QR Code du document</h2>
-    <div id="qrCanvas"></div>
-    <p id="qrLink" class="muted"></p>
-    <button class="secondary" id="closeQr">Fermer</button>
-  </div>
-
+<div class="card"><div class="row" style="align-items:center"><div><h2>Administration</h2><p id="who" class="muted"></p></div><div><button class="secondary" id="logoutBtn">Déconnexion</button></div></div></div>
+<div class="card"><h2>Ajouter un document</h2><label>Numéro du document</label><input id="docNum" placeholder="Ex. DOC-2026-001"><label>Nom / titre du document</label><input id="docName" placeholder="Nom du document"><label>Statut</label><select id="docStatus"><option value="Valid">Valide</option><option value="Suspended">Suspendu</option><option value="Cancelled">Annulé</option></select><button id="saveBtn">Enregistrer le document</button><div id="saveMsg"></div></div>
+<div class="card"><h2>Documents enregistrés</h2><div id="documentsList" class="muted">Chargement…</div></div>
+<div id="qrCard" class="card qr hidden"><h2>QR Code du document</h2><div id="qrCanvas"></div><p id="qrLink" class="muted"></p><button id="downloadQr" type="button">Télécharger le QR code ↓</button><button class="secondary" id="closeQr">Fermer</button></div>
 </section>
 </main>
-
-<a id="whatsappButton"
-   class="whatsapp-button hidden"
-   href="https://wa.me/256770674075?text=Bonjour%20Chrispin%20Officiel%2C%20j%27ai%20besoin%20d%27assistance."
-   target="_blank"
-   rel="noopener noreferrer"
-   aria-label="Contacter Chrispin Officiel sur WhatsApp">◉</a>
-
-<footer>
-  © Chrispin Officiel · Document Verification System
-</footer>
+<footer>© <span id="year"></span> Chrispin Officiel · Document Verification System</footer>
+<a class="whatsapp" href="https://wa.me/256770674075?text=Bonjour%20Chrispin%20Officiel%2C%20j'ai%20besoin%20d'assistance." target="_blank" rel="noopener" aria-label="Contacter Chrispin Officiel sur WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 3C8.86 3 3.04 8.81 3.04 15.97c0 2.29.6 4.53 1.74 6.5L3 29l6.7-1.75a12.9 12.9 0 0 0 6.31 1.65h.01C23.17 28.9 29 23.08 29 15.92 29 12.45 27.65 9.19 25.2 6.73A12.9 12.9 0 0 0 16.02 3zm0 23.72h-.01a10.75 10.75 0 0 1-5.48-1.5l-.39-.23-3.98 1.04 1.06-3.88-.25-.4a10.72 10.72 0 0 1-1.64-5.78c0-5.91 4.81-10.72 10.73-10.72 2.86 0 5.55 1.12 7.57 3.14a10.65 10.65 0 0 1 3.13 7.58c0 5.91-4.81 10.73-10.73 10.73zm5.89-8.04c-.32-.16-1.88-.93-2.17-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.89-1.78-2.21-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.71-.98-2.34-.26-.61-.52-.53-.71-.54h-.61c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.66s1.14 3.09 1.3 3.3c.16.21 2.24 3.42 5.43 4.8.76.33 1.35.53 1.81.68.76.24 1.45.21 2 .13.61-.09 1.88-.77 2.15-1.51.26-.74.26-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></svg></a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -342,233 +40,137 @@ const SUPABASE_URL='https://ickxlowbedvcbslchizj.supabase.co';
 const SUPABASE_KEY='sb_publishable_rT07Rv47_tM6Ek9Krlv3_A_pK1gpsF5';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
-
-const msg=(el,text,good=false)=>{
-  el.innerHTML='';
-  let d=document.createElement('div');
-  d.className='msg '+(good?'good':'bad');
-  d.textContent=text;
-  el.appendChild(d);
-};
+const msg=(el,text,good=false)=>{el.innerHTML='';let d=document.createElement('div');d.className='msg '+(good?'good':'bad');d.textContent=text;el.appendChild(d)};
 
 async function verify(){
-  const token=new URLSearchParams(location.search).get('verify');
-  if(!token)return;
-
-  $('verifyBox').classList.remove('hidden');
-  $('authBox').classList.add('hidden');
-  $('adminBox').classList.add('hidden');
-  $('whatsappButton').classList.remove('hidden');
-
-  try{
-    const {data,error}=await sb.rpc('verify_document',{token});
-    if(error)throw error;
-
-    const d=data?.[0];
-
-    if(!d){
-      $('verifyResult').innerHTML=
-        '<div class="verify-status invalid">✕ DOCUMENT INTROUVABLE</div><p>Ce document n’a pas été retrouvé dans notre registre.</p>';
-      return;
-    }
-
-    const valid=String(d.status).toLowerCase()==='valid';
-
-    $('verifyResult').innerHTML=`
-      <div class="verify-status ${valid?'valid':'invalid'}">
-        ${valid?'✓ DOCUMENT VALIDE':'⚠ DOCUMENT NON VALIDE'}
-      </div>
-      <div class="details">
-        <div class="detail-row">
-          <span>Numéro</span>
-          <strong>${escapeHtml(d.document_number||'')}</strong>
-        </div>
-        <div class="detail-row">
-          <span>Document</span>
-          <strong>${escapeHtml(d.document_name||'')}</strong>
-        </div>
-        <div class="detail-row">
-          <span>Statut</span>
-          <strong>${escapeHtml(d.status||'')}</strong>
-        </div>
-        <div class="detail-row">
-          <span>Date d'enregistrement</span>
-          <strong>${d.created_at?new Date(d.created_at).toLocaleDateString('fr-FR'):''}</strong>
-        </div>
-      </div>
-    `;
-  }catch(e){
-    $('verifyResult').innerHTML=
-      '<div class="msg bad">Vérification impossible. '+escapeHtml(e.message||'Erreur')+'</div>';
+ const token=new URLSearchParams(location.search).get('verify');
+ if(!token)return;
+ $('verifyBox').classList.remove('hidden');
+ $('publicLayout').classList.add('hidden');
+ $('authBox').classList.add('hidden');
+ $('adminBox').classList.add('hidden');
+ try{
+  const {data,error}=await sb.rpc('verify_document',{token});
+  if(error)throw error;
+  const d=data?.[0];
+  if(!d){
+   $('verifyResult').innerHTML='<p class="invalid">✖ Document introuvable</p><p>Ce document n’a pas été retrouvé dans le registre.</p>';
+   return;
   }
+  const valid=String(d.status).toLowerCase()==='valid';
+  $('verifyResult').innerHTML=`<p class="${valid?'valid':'invalid'}">${valid?'✓ DOCUMENT VALIDE':'⚠ DOCUMENT NON VALIDE'}</p><p><b>Numéro :</b> ${escapeHtml(d.document_number||'')}</p><p><b>Document :</b> ${escapeHtml(d.document_name||'')}</p><p><b>Statut :</b> ${escapeHtml(d.status||'')}</p><p class="muted">Enregistré le ${d.created_at?new Date(d.created_at).toLocaleDateString('fr-FR'):''}</p>`;
+ }catch(e){
+  $('verifyResult').innerHTML='<div class="msg bad">Vérification impossible. '+escapeHtml(e.message||'Erreur')+'</div>';
+ }
 }
-
 function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g,c=>({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
-  }[c]));
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-
 async function showAdmin(user){
-  $('authBox').classList.add('hidden');
-  $('adminBox').classList.remove('hidden');
-  $('who').textContent='Connecté : '+user.email;
-  await loadDocs();
+ $('publicLayout').classList.add('hidden');
+ $('authBox').classList.add('hidden');
+ $('adminBox').classList.remove('hidden');
+ $('who').textContent='Connecté : '+user.email;
+ await loadDocs();
 }
-
 async function loadDocs(){
-  const box=$('documentsList');
-  box.textContent='Chargement…';
-
-  const {data,error}=await sb.from('documents')
-    .select('id,document_number,document_name,status,created_at,verification_token')
-    .order('created_at',{ascending:false});
-
-  if(error){
-    box.innerHTML='';
-    msg(box,error.message);
-    return;
-  }
-
-  box.innerHTML='';
-
-  if(!data.length){
-    box.textContent='Aucun document pour le moment.';
-    return;
-  }
-
-  data.forEach(d=>{
-    const div=document.createElement('div');
-    div.className='doc';
-
-    const left=document.createElement('div');
-    left.innerHTML=`<strong>${escapeHtml(d.document_number)}</strong><small>${escapeHtml(d.document_name)} · ${escapeHtml(d.status)}</small>`;
-
-    const btn=document.createElement('button');
-    btn.textContent='QR Code';
-    btn.style.width='auto';
-    btn.onclick=()=>makeQr(d);
-
-    div.append(left,btn);
-    box.appendChild(div);
-  });
+ const box=$('documentsList');
+ box.textContent='Chargement…';
+ const {data,error}=await sb.from('documents').select('id,document_number,document_name,status,created_at,verification_token').order('created_at',{ascending:false});
+ if(error){box.innerHTML='';msg(box,error.message);return;}
+ box.innerHTML='';
+ if(!data.length){box.textContent='Aucun document pour le moment.';return;}
+ data.forEach(d=>{
+  const div=document.createElement('div');
+  div.className='doc';
+  const left=document.createElement('div');
+  left.innerHTML=`<strong>${escapeHtml(d.document_number)}</strong><small>${escapeHtml(d.document_name)} · ${escapeHtml(d.status)}</small>`;
+  const btn=document.createElement('button');
+  btn.textContent='QR Code';
+  btn.style.width='auto';
+  btn.onclick=()=>makeQr(d);
+  div.append(left,btn);
+  box.appendChild(div);
+ });
 }
 
+/* QR : le lien est créé avant l'image. Si le service QR est indisponible, le lien reste utilisable. */
+let currentQrImage=null;
 function makeQr(d){
-  const card=$('qrCard');
-  const canvasBox=$('qrCanvas');
-  const linkBox=$('qrLink');
+ const card=$('qrCard');
+ const canvasBox=$('qrCanvas');
+ const linkBox=$('qrLink');
+ card.classList.remove('hidden');
+ canvasBox.textContent='';
+ linkBox.textContent='';
+ if(!d || !d.verification_token){
+  canvasBox.textContent='Jeton de vérification absent pour ce document.';
+  return;
+ }
+ const verificationUrl=new URL(location.href);
+ verificationUrl.search='';
+ verificationUrl.hash='';
+ verificationUrl.searchParams.set('verify',d.verification_token);
+ const url=verificationUrl.toString();
 
-  card.classList.remove('hidden');
-  canvasBox.textContent='';
-  linkBox.textContent='';
+ const link=document.createElement('a');
+ link.href=url;
+ link.textContent='Ouvrir la vérification du document';
+ link.target='_blank';
+ link.rel='noopener noreferrer';
+ linkBox.appendChild(link);
+ const urlText=document.createElement('div');
+ urlText.textContent=url;
+ urlText.style.fontSize='12px';
+ urlText.style.marginTop='8px';
+ urlText.style.overflowWrap='anywhere';
+ linkBox.appendChild(urlText);
 
-  if(!d || !d.verification_token){
-    canvasBox.textContent='Jeton de vérification absent pour ce document.';
-    return;
-  }
-
-  const verificationUrl=new URL(location.href);
-  verificationUrl.search='';
-  verificationUrl.hash='';
-  verificationUrl.searchParams.set('verify',d.verification_token);
-  const url=verificationUrl.toString();
-
-  const link=document.createElement('a');
-  link.href=url;
-  link.textContent='Ouvrir la vérification du document';
-  link.target='_blank';
-  link.rel='noopener noreferrer';
-  linkBox.appendChild(link);
-
-  const urlText=document.createElement('div');
-  urlText.textContent=url;
-  urlText.style.fontSize='12px';
-  urlText.style.marginTop='8px';
-  urlText.style.overflowWrap='anywhere';
-  linkBox.appendChild(urlText);
-
-  const img=document.createElement('img');
-  img.alt='QR Code de vérification';
-  img.width=220;
-  img.height=220;
-
-  img.onerror=()=>{
-    img.remove();
-    const warning=document.createElement('p');
-    warning.className='msg bad';
-    warning.textContent='Image QR indisponible. Le lien de vérification ci-dessus reste utilisable.';
-    canvasBox.appendChild(warning);
-  };
-
-  canvasBox.appendChild(img);
-  img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
+ const img=document.createElement('img');
+ currentQrImage=img;
+ img.alt='QR Code de vérification';
+ img.width=220;
+ img.height=220;
+ img.onerror=()=>{
+  img.remove();
+  const warning=document.createElement('p');
+  warning.className='msg bad';
+  warning.textContent='Image QR indisponible. Le lien de vérification ci-dessus reste utilisable.';
+  canvasBox.appendChild(warning);
+ };
+ canvasBox.appendChild(img);
+ img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
 }
-
 $('loginBtn').onclick=async()=>{
-  const {data,error}=await sb.auth.signInWithPassword({
-    email:$('email').value.trim(),
-    password:$('password').value
-  });
-
-  if(error){
-    msg($('authMsg'),error.message);
-    return;
-  }
-
-  msg($('authMsg'),'Connexion réussie.',true);
-  await showAdmin(data.user);
+ const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+ if(error){msg($('authMsg'),error.message);return;}
+ msg($('authMsg'),'Connexion réussie.',true);
+ await showAdmin(data.user);
 };
-
-$('logoutBtn').onclick=async()=>{
-  await sb.auth.signOut();
-  location.reload();
-};
-
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut();location.reload();};
 $('saveBtn').onclick=async()=>{
-  const n=$('docNum').value.trim();
-  const name=$('docName').value.trim();
-  const status=$('docStatus').value;
-
-  if(!n||!name){
-    msg($('saveMsg'),'Veuillez saisir le numéro et le nom du document.');
-    return;
-  }
-
-  const {data,error}=await sb.from('documents')
-    .insert({document_number:n,document_name:name,status})
-    .select('id,document_number,document_name,status,created_at,verification_token')
-    .single();
-
-  if(error){
-    msg($('saveMsg'),error.message);
-    return;
-  }
-
-  msg($('saveMsg'),'Document enregistré avec succès.',true);
-  $('docNum').value='';
-  $('docName').value='';
-
-  await loadDocs();
-  makeQr(data);
+ const n=$('docNum').value.trim(),name=$('docName').value.trim(),status=$('docStatus').value;
+ if(!n||!name){msg($('saveMsg'),'Veuillez saisir le numéro et le nom du document.');return;}
+ const {data,error}=await sb.from('documents').insert({document_number:n,document_name:name,status}).select('id,document_number,document_name,status,created_at,verification_token').single();
+ if(error){msg($('saveMsg'),error.message);return;}
+ msg($('saveMsg'),'Document enregistré avec succès.',true);
+ $('docNum').value='';
+ $('docName').value='';
+ await loadDocs();
+ makeQr(data);
 };
-
+$('downloadQr').onclick=async()=>{
+ if(!currentQrImage || !currentQrImage.src){alert('Le QR code n’est pas encore prêt.');return;}
+ try{const response=await fetch(currentQrImage.src);if(!response.ok)throw new Error('QR indisponible');const blob=await response.blob();const objectUrl=URL.createObjectURL(blob);const a=document.createElement('a');a.href=objectUrl;a.download='Chrispin-Officiel-QR-Code.png';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(objectUrl);}catch(e){window.open(currentQrImage.src,'_blank','noopener');}
+};
 $('closeQr').onclick=()=>$('qrCard').classList.add('hidden');
+$('year').textContent=new Date().getFullYear();
 
 (async()=>{
-  if(new URLSearchParams(location.search).has('verify')){
-    await verify();
-    return;
-  }
-
-  const {data:{session}}=await sb.auth.getSession();
-  if(session?.user)await showAdmin(session.user);
+ if(new URLSearchParams(location.search).has('verify')){await verify();return;}
+ const {data:{session}}=await sb.auth.getSession();
+ if(session?.user)await showAdmin(session.user);
 })();
 </script>
-
 </body>
 </html>

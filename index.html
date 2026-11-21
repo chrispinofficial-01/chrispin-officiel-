@@ -31,8 +31,8 @@ button.danger{background:var(--red)}
 .doc strong{display:block}
 .doc small{color:var(--muted)}
 .qr{text-align:center}
-.qr img{display:block;width:220px;height:220px;max-width:100%;margin:12px auto;background:#fff}
-.qr a{display:block;overflow-wrap:anywhere;margin:12px 0}
+.qr img{display:block;width:220px;height:220px;max-width:100%;margin:12px auto;background:#fff;object-fit:contain}
+.qr a{display:block;overflow-wrap:anywhere;margin:12px 0;color:var(--blue)}
 .verify{font-size:1.1rem}
 .valid{color:var(--green);font-weight:800}
 .invalid{color:var(--red);font-weight:800}
@@ -111,36 +111,51 @@ async function loadDocs(){
  });
 }
 
-/* QR Code corrigé : affiche immédiatement le lien et l'image, puis signale toute erreur de chargement. */
+/* QR : le lien est créé avant l'image. Si le service QR est indisponible, le lien reste utilisable. */
 function makeQr(d){
- const token=d.verification_token;
- $('qrCard').classList.remove('hidden');
- $('qrCanvas').innerHTML='';
- $('qrLink').innerHTML='';
- if(!token){
-  $('qrCanvas').textContent='Erreur : ce document ne possède pas de jeton de vérification.';
+ const card=$('qrCard');
+ const canvasBox=$('qrCanvas');
+ const linkBox=$('qrLink');
+ card.classList.remove('hidden');
+ canvasBox.textContent='';
+ linkBox.textContent='';
+ if(!d || !d.verification_token){
+  canvasBox.textContent='Jeton de vérification absent pour ce document.';
   return;
  }
- const url=location.origin+location.pathname+'?verify='+encodeURIComponent(token);
+ const verificationUrl=new URL(location.href);
+ verificationUrl.search='';
+ verificationUrl.hash='';
+ verificationUrl.searchParams.set('verify',d.verification_token);
+ const url=verificationUrl.toString();
+
  const link=document.createElement('a');
  link.href=url;
- link.textContent=url;
+ link.textContent='Ouvrir la vérification du document';
  link.target='_blank';
- link.rel='noopener';
- $('qrLink').appendChild(link);
+ link.rel='noopener noreferrer';
+ linkBox.appendChild(link);
+ const urlText=document.createElement('div');
+ urlText.textContent=url;
+ urlText.style.fontSize='12px';
+ urlText.style.marginTop='8px';
+ urlText.style.overflowWrap='anywhere';
+ linkBox.appendChild(urlText);
 
  const img=document.createElement('img');
  img.alt='QR Code de vérification';
  img.width=220;
  img.height=220;
- img.referrerPolicy='no-referrer';
  img.onerror=()=>{
-  $('qrCanvas').textContent='Le QR Code ne peut pas être chargé. Utilise le lien ci-dessous pour vérifier le document.';
+  img.remove();
+  const warning=document.createElement('p');
+  warning.className='msg bad';
+  warning.textContent='Image QR indisponible. Le lien de vérification ci-dessus reste utilisable.';
+  canvasBox.appendChild(warning);
  };
- $('qrCanvas').appendChild(img);
+ canvasBox.appendChild(img);
  img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
 }
-
 $('loginBtn').onclick=async()=>{
  const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
  if(error){msg($('authMsg'),error.message);return;}

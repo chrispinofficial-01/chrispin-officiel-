@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chrispin Officiel — Vérification de documents</title>
+<style>
+:root{--navy:#102e56;--blue:#2366d1;--light:#f2f7ff;--text:#17263b;--muted:#63748b;--green:#16834b;--red:#b42332}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--light);color:var(--text)}
+header{background:linear-gradient(130deg,#102e56,#2366d1);color:#fff;padding:26px 18px}
+header .inner,main{max-width:900px;margin:auto}
+h1{margin:0;font-size:1.5rem}
+header p{margin:6px 0 0;color:#d6e6ff}
+main{padding:18px}
+.card{background:white;border:1px solid #e2eaf5;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 4px 16px #0c25460a}
+h2{font-size:1.15rem;margin:0 0 14px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:160px}
+label{display:block;font-weight:600;font-size:.9rem;margin:10px 0 5px}
+input,select,button{font:inherit;padding:12px;border-radius:10px;border:1px solid #cbd8e8;width:100%}
+button{background:var(--blue);color:white;border:0;font-weight:700;cursor:pointer;margin-top:10px}
+button.secondary{background:#e8f0fb;color:var(--navy)}
+button.danger{background:var(--red)}
+.muted{color:var(--muted);font-size:.9rem}
+.hidden{display:none!important}
+.msg{padding:12px;border-radius:10px;background:#eef5ff;margin:10px 0;overflow-wrap:anywhere}
+.msg.good{background:#e9f8ef;color:#126c3d}
+.msg.bad{background:#fff0f0;color:#9c202b}
+.doc{border:1px solid #e5edf7;padding:12px;border-radius:12px;margin:10px 0;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.doc strong{display:block}
+.doc small{color:var(--muted)}
+.qr{text-align:center}
+.qr img{display:block;width:220px;height:220px;max-width:100%;margin:12px auto;background:#fff;object-fit:contain}
+.qr a{display:block;overflow-wrap:anywhere;margin:12px 0;color:var(--blue)}
+.verify{font-size:1.1rem}
+.valid{color:var(--green);font-weight:800}
+.invalid{color:var(--red);font-weight:800}
+footer{text-align:center;color:var(--muted);padding:24px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>CHRISPIN OFFICIEL</h1><p>Document Verification System</p></div></header>
+<main>
+<section id="verifyBox" class="card hidden"><h2>Vérification du document</h2><div id="verifyResult" class="verify">Vérification en cours…</div></section>
+<section id="authBox" class="card"><h2>Connexion administrateur</h2><p class="muted">Connectez-vous pour enregistrer et gérer les documents.</p><label>Adresse e-mail</label><input id="email" type="email" autocomplete="username" placeholder="Votre adresse Gmail"><label>Mot de passe</label><input id="password" type="password" autocomplete="current-password" placeholder="Mot de passe"><button id="loginBtn">Se connecter</button><div id="authMsg"></div></section>
+<section id="adminBox" class="hidden">
+<div class="card"><div class="row" style="align-items:center"><div><h2>Administration</h2><p id="who" class="muted"></p></div><div><button class="secondary" id="logoutBtn">Déconnexion</button></div></div></div>
+<div class="card"><h2>Ajouter un document</h2><label>Numéro du document</label><input id="docNum" placeholder="Ex. DOC-2026-001"><label>Nom / titre du document</label><input id="docName" placeholder="Nom du document"><label>Statut</label><select id="docStatus"><option value="Valid">Valide</option><option value="Suspended">Suspendu</option><option value="Cancelled">Annulé</option></select><button id="saveBtn">Enregistrer le document</button><div id="saveMsg"></div></div>
+<div class="card"><h2>Documents enregistrés</h2><div id="documentsList" class="muted">Chargement…</div></div>
+<div id="qrCard" class="card qr hidden"><h2>QR Code du document</h2><div id="qrCanvas"></div><p id="qrLink" class="muted"></p><button class="secondary" id="closeQr">Fermer</button></div>
+</section>
+</main>
+<footer>Chrispin Officiel · Vérification de documents</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://ickxlowbedvcbslchizj.supabase.co';
+const SUPABASE_KEY='sb_publishable_rT07Rv47_tM6Ek9Krlv3_A_pK1gpsF5';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const msg=(el,text,good=false)=>{el.innerHTML='';let d=document.createElement('div');d.className='msg '+(good?'good':'bad');d.textContent=text;el.appendChild(d)};
+
+async function verify(){
+ const token=new URLSearchParams(location.search).get('verify');
+ if(!token)return;
+ $('verifyBox').classList.remove('hidden');
+ $('authBox').classList.add('hidden');
+ $('adminBox').classList.add('hidden');
+ try{
+  const {data,error}=await sb.rpc('verify_document',{token});
+  if(error)throw error;
+  const d=data?.[0];
+  if(!d){
+   $('verifyResult').innerHTML='<p class="invalid">✖ Document introuvable</p><p>Ce document n’a pas été retrouvé dans le registre.</p>';
+   return;
+  }
+  const valid=String(d.status).toLowerCase()==='valid';
+  $('verifyResult').innerHTML=`<p class="${valid?'valid':'invalid'}">${valid?'✓ DOCUMENT VALIDE':'⚠ DOCUMENT NON VALIDE'}</p><p><b>Numéro :</b> ${escapeHtml(d.document_number||'')}</p><p><b>Document :</b> ${escapeHtml(d.document_name||'')}</p><p><b>Statut :</b> ${escapeHtml(d.status||'')}</p><p class="muted">Enregistré le ${d.created_at?new Date(d.created_at).toLocaleDateString('fr-FR'):''}</p>`;
+ }catch(e){
+  $('verifyResult').innerHTML='<div class="msg bad">Vérification impossible. '+escapeHtml(e.message||'Erreur')+'</div>';
+ }
+}
+function escapeHtml(s){
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+async function showAdmin(user){
+ $('authBox').classList.add('hidden');
+ $('adminBox').classList.remove('hidden');
+ $('who').textContent='Connecté : '+user.email;
+ await loadDocs();
+}
+async function loadDocs(){
+ const box=$('documentsList');
+ box.textContent='Chargement…';
+ const {data,error}=await sb.from('documents').select('id,document_number,document_name,status,created_at,verification_token').order('created_at',{ascending:false});
+ if(error){box.innerHTML='';msg(box,error.message);return;}
+ box.innerHTML='';
+ if(!data.length){box.textContent='Aucun document pour le moment.';return;}
+ data.forEach(d=>{
+  const div=document.createElement('div');
+  div.className='doc';
+  const left=document.createElement('div');
+  left.innerHTML=`<strong>${escapeHtml(d.document_number)}</strong><small>${escapeHtml(d.document_name)} · ${escapeHtml(d.status)}</small>`;
+  const btn=document.createElement('button');
+  btn.textContent='QR Code';
+  btn.style.width='auto';
+  btn.onclick=()=>makeQr(d);
+  div.append(left,btn);
+  box.appendChild(div);
+ });
+}
+
+/* QR : le lien est créé avant l'image. Si le service QR est indisponible, le lien reste utilisable. */
+function makeQr(d){
+ const card=$('qrCard');
+ const canvasBox=$('qrCanvas');
+ const linkBox=$('qrLink');
+ card.classList.remove('hidden');
+ canvasBox.textContent='';
+ linkBox.textContent='';
+ if(!d || !d.verification_token){
+  canvasBox.textContent='Jeton de vérification absent pour ce document.';
+  return;
+ }
+ const verificationUrl=new URL(location.href);
+ verificationUrl.search='';
+ verificationUrl.hash='';
+ verificationUrl.searchParams.set('verify',d.verification_token);
+ const url=verificationUrl.toString();
+
+ const link=document.createElement('a');
+ link.href=url;
+ link.textContent='Ouvrir la vérification du document';
+ link.target='_blank';
+ link.rel='noopener noreferrer';
+ linkBox.appendChild(link);
+ const urlText=document.createElement('div');
+ urlText.textContent=url;
+ urlText.style.fontSize='12px';
+ urlText.style.marginTop='8px';
+ urlText.style.overflowWrap='anywhere';
+ linkBox.appendChild(urlText);
+
+ const img=document.createElement('img');
+ img.alt='QR Code de vérification';
+ img.width=220;
+ img.height=220;
+ img.onerror=()=>{
+  img.remove();
+  const warning=document.createElement('p');
+  warning.className='msg bad';
+  warning.textContent='Image QR indisponible. Le lien de vérification ci-dessus reste utilisable.';
+  canvasBox.appendChild(warning);
+ };
+ canvasBox.appendChild(img);
+ img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
+}
+$('loginBtn').onclick=async()=>{
+ const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+ if(error){msg($('authMsg'),error.message);return;}
+ msg($('authMsg'),'Connexion réussie.',true);
+ await showAdmin(data.user);
+};
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut();location.reload();};
+$('saveBtn').onclick=async()=>{
+ const n=$('docNum').value.trim(),name=$('docName').value.trim(),status=$('docStatus').value;
+ if(!n||!name){msg($('saveMsg'),'Veuillez saisir le numéro et le nom du document.');return;}
+ const {data,error}=await sb.from('documents').insert({document_number:n,document_name:name,status}).select('id,document_number,document_name,status,created_at,verification_token').single();
+ if(error){msg($('saveMsg'),error.message);return;}
+ msg($('saveMsg'),'Document enregistré avec succès.',true);
+ $('docNum').value='';
+ $('docName').value='';
+ await loadDocs();
+ makeQr(data);
+};
+$('closeQr').onclick=()=>$('qrCard').classList.add('hidden');
+
+(async()=>{
+ if(new URLSearchParams(location.search).has('verify')){await verify();return;}
+ const {data:{session}}=await sb.auth.getSession();
+ if(session?.user)await showAdmin(session.user);
+})();
+</script>
+</body>
+</html>

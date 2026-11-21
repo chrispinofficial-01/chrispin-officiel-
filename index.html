@@ -32,6 +32,7 @@ button.danger{background:var(--red)}
 .doc small{color:var(--muted)}
 .qr{text-align:center}
 .qr img{display:block;width:220px;height:220px;max-width:100%;margin:12px auto;background:#fff}
+.qr a{display:block;overflow-wrap:anywhere;margin:12px 0}
 .verify{font-size:1.1rem}
 .valid{color:var(--green);font-weight:800}
 .invalid{color:var(--red);font-weight:800}
@@ -110,28 +111,34 @@ async function loadDocs(){
  });
 }
 
-/* QR Code : l'image est fournie par un service externe, sans dépendre de la bibliothèque QRCode précédente. */
+/* QR Code corrigé : affiche immédiatement le lien et l'image, puis signale toute erreur de chargement. */
 function makeQr(d){
  const token=d.verification_token;
  $('qrCard').classList.remove('hidden');
  $('qrCanvas').innerHTML='';
- $('qrLink').textContent='';
+ $('qrLink').innerHTML='';
  if(!token){
   $('qrCanvas').textContent='Erreur : ce document ne possède pas de jeton de vérification.';
   return;
  }
  const url=location.origin+location.pathname+'?verify='+encodeURIComponent(token);
+ const link=document.createElement('a');
+ link.href=url;
+ link.textContent=url;
+ link.target='_blank';
+ link.rel='noopener';
+ $('qrLink').appendChild(link);
+
  const img=document.createElement('img');
  img.alt='QR Code de vérification';
  img.width=220;
  img.height=220;
  img.referrerPolicy='no-referrer';
- img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
- img.onload=()=>{$('qrCanvas').appendChild(img);};
  img.onerror=()=>{
-  $('qrCanvas').textContent='Le service de génération du QR Code ne répond pas. Vérifie ta connexion Internet.';
+  $('qrCanvas').textContent='Le QR Code ne peut pas être chargé. Utilise le lien ci-dessous pour vérifier le document.';
  };
- $('qrLink').textContent=url;
+ $('qrCanvas').appendChild(img);
+ img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
 }
 
 $('loginBtn').onclick=async()=>{

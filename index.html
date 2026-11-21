@@ -19,7 +19,7 @@
 <div id="qrCard" class="card qr hidden"><h2>QR Code du document</h2><div id="qrCanvas"></div><p id="qrLink" class="muted"></p><button id="downloadQr" class="secondary">Télécharger le QR Code (PNG)</button><button class="secondary" id="closeQr">Fermer</button></div>
 </section>
 </main><footer>Chrispin Officiel · Vérification de documents</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL='https://ickxlowbedvcbslchizj.supabase.co';
 const SUPABASE_KEY='sb_publishable_rT07Rv47_tM6Ek9Krlv3_A_pK1gpsF5';
@@ -29,9 +29,26 @@ async function verify(){const token=new URLSearchParams(location.search).get('ve
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 async function showAdmin(user){$('authBox').classList.add('hidden');$('adminBox').classList.remove('hidden');$('who').textContent='Connecté : '+user.email;await loadDocs();}
 async function loadDocs(){const box=$('documentsList');box.textContent='Chargement…';const {data,error}=await sb.from('documents').select('id,document_number,document_name,status,created_at,verification_token').order('created_at',{ascending:false});if(error){box.innerHTML='';msg(box,error.message);return;}box.innerHTML='';if(!data.length){box.textContent='Aucun document pour le moment.';return;}data.forEach(d=>{const div=document.createElement('div');div.className='doc';const left=document.createElement('div');left.innerHTML=`<strong>${escapeHtml(d.document_number)}</strong><small>${escapeHtml(d.document_name)} · ${escapeHtml(d.status)}</small>`;const btn=document.createElement('button');btn.textContent='QR Code';btn.style.width='auto';btn.onclick=()=>makeQr(d);div.append(left,btn);box.appendChild(div);});}
-let currentQrCanvas=null;let currentQrName='document';
-function makeQr(d){const url=location.origin+location.pathname+'?verify='+encodeURIComponent(d.verification_token);$('qrCard').classList.remove('hidden');$('qrCanvas').innerHTML='';currentQrCanvas=null;currentQrName=String(d.document_number||'document').replace(/[^a-z0-9_-]/gi,'_');QRCode.toCanvas(url,{width:300,margin:2},(err,canvas)=>{if(err){$('qrCanvas').textContent='Erreur QR';return;}currentQrCanvas=canvas;$('qrCanvas').appendChild(canvas);});$('qrLink').textContent=url;}
-$('downloadQr').onclick=()=>{if(!currentQrCanvas){alert('Le QR Code est encore en préparation. Réessaie dans un instant.');return;}const a=document.createElement('a');a.download='QR-'+currentQrName+'.png';a.href=currentQrCanvas.toDataURL('image/png');document.body.appendChild(a);a.click();a.remove();};
+let currentQrImageUrl='';
+function makeQr(d){
+ const url=location.origin+location.pathname+'?verify='+encodeURIComponent(d.verification_token);
+ $('qrCard').classList.remove('hidden');
+ $('qrCanvas').innerHTML='';
+ currentQrImageUrl='https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=2&data='+encodeURIComponent(url);
+ const img=document.createElement('img');
+ img.alt='QR Code de vérification';
+ img.width=300; img.height=300;
+ img.style.maxWidth='100%';
+ img.onerror=()=>{$('qrCanvas').textContent='Impossible de charger l’image QR. Vérifie ta connexion Internet.';};
+ img.onload=()=>{};
+ img.src=currentQrImageUrl;
+ $('qrCanvas').appendChild(img);
+ $('qrLink').textContent=url;
+}
+$('downloadQr').onclick=()=>{
+ if(!currentQrImageUrl){alert('Ouvre d’abord le QR Code du document.');return;}
+ window.open(currentQrImageUrl,'_blank','noopener');
+};
 $('loginBtn').onclick=async()=>{const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){msg($('authMsg'),error.message);return;}msg($('authMsg'),'Connexion réussie.',true);await showAdmin(data.user);};
 $('logoutBtn').onclick=async()=>{await sb.auth.signOut();location.reload();};
 $('saveBtn').onclick=async()=>{const n=$('docNum').value.trim(),name=$('docName').value.trim(),status=$('docStatus').value;if(!n||!name){msg($('saveMsg'),'Veuillez saisir le numéro et le nom du document.');return;}const {data,error}=await sb.from('documents').insert({document_number:n,document_name:name,status}).select('id,document_number,document_name,status,created_at,verification_token').single();if(error){msg($('saveMsg'),error.message);return;}msg($('saveMsg'),'Document enregistré avec succès.',true);$('docNum').value='';$('docName').value='';await loadDocs();makeQr(data);};

@@ -1,182 +1,46 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Chrispin Officiel — Vérification de documents</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-:root{--sky:#75d5ff;--sky2:#b9edff;--mauve:#b99aff;--purple:#8964e8;--ink:#25233a;--muted:#77758e;--green:#159b69;--red:#d84c70;--line:#e9e7f5;--glass:rgba(255,255,255,.82)}
-*{box-sizing:border-box}
-html{min-height:100%;background:#f7f8ff}
-body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:radial-gradient(ellipse at 8% 4%,rgba(117,213,255,.28),transparent 34%),radial-gradient(ellipse at 92% 12%,rgba(185,154,255,.28),transparent 35%),linear-gradient(145deg,#fbfdff 0%,#f5f3ff 52%,#f9fbff 100%);min-height:100vh}
-header{position:relative;overflow:hidden;padding:42px 20px 48px;background:linear-gradient(118deg,#a9e9ff 0%,#b9c9ff 48%,#d6b5f4 100%);color:#27243d;border-bottom:1px solid rgba(255,255,255,.8)}
-header:before,header:after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.23);pointer-events:none}
-header:before{width:260px;height:260px;right:-60px;top:-145px}header:after{width:190px;height:190px;left:55%;bottom:-145px}
-header .inner,main{max-width:940px;margin:auto;position:relative;z-index:1}
-header .inner{text-align:center}
-h1{margin:0;font-size:clamp(1.8rem,5vw,2.65rem);font-weight:900;letter-spacing:-.055em;background:linear-gradient(95deg,#318fc9 0%,#7772dc 48%,#a35fbd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-header p{margin:10px 0 0;color:#575273;font-size:.98rem;font-weight:600;letter-spacing:.025em}
-main{padding:26px 18px 112px}
-.card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.95);border-radius:23px;padding:23px;margin:17px 0;box-shadow:0 14px 40px rgba(111,102,174,.10),0 2px 8px rgba(87,151,194,.06)}
-h2{font-size:1.22rem;font-weight:800;letter-spacing:-.025em;margin:0 0 15px;background:linear-gradient(95deg,#48acd8,#8875df 58%,#ad72c5);-webkit-background-clip:text;background-clip:text;color:transparent}
-.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:160px}
-label{display:block;font-weight:700;font-size:.88rem;margin:13px 0 6px;color:#514d70}
-input,select,button{font:inherit;padding:13px 14px;border-radius:13px;border:1px solid #e1e3f2;width:100%;outline:none}
-input,select{background:rgba(255,255,255,.9);color:var(--ink);transition:border-color .2s,box-shadow .2s}
-input:focus,select:focus{border-color:#9b9ce9;box-shadow:0 0 0 4px rgba(151,157,238,.16)}
-button{background:linear-gradient(105deg,#72d6f5 0%,#9da9f5 52%,#bd91e8 100%);color:#252744;border:0;font-weight:800;cursor:pointer;margin-top:12px;box-shadow:0 8px 18px rgba(126,145,225,.2);transition:transform .18s,filter .18s}
-button:hover{transform:translateY(-1px);filter:saturate(1.12)}button:active{transform:translateY(0)}
-button.secondary{background:linear-gradient(105deg,#e1f7ff,#eee8ff);color:#5d5b91;border:1px solid #e4e2f5;box-shadow:none}
-button.danger{background:linear-gradient(105deg,#f7b8cf,#e98aa8);color:#65263f}
-.muted{color:var(--muted);font-size:.9rem}.hidden{display:none!important}
-.msg{padding:13px 15px;border-radius:14px;background:#edf7ff;margin:11px 0;overflow-wrap:anywhere}
-.msg.good{background:#e8f9f1;color:#126c4c}.msg.bad{background:#fff0f4;color:#9c3153}
-.doc{border:1px solid var(--line);background:rgba(255,255,255,.72);padding:14px;border-radius:15px;margin:11px 0;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-.doc strong{display:block;color:#57549a}.doc small{color:var(--muted)}.doc button{max-width:150px}
-.qr{text-align:center}.qr img{display:block;width:220px;height:220px;max-width:100%;margin:14px auto;background:#fff;border-radius:12px;padding:8px;box-shadow:0 5px 20px #34305a12}
-.verify{font-size:1.08rem}.valid{color:var(--green);font-weight:800}.invalid{color:var(--red);font-weight:800}
-footer{text-align:center;color:var(--muted);padding:26px 18px 105px;font-size:.85rem}
-.social-dock{position:fixed;z-index:20;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-.social-dock a{display:flex;align-items:center;gap:9px;padding:12px 17px;border-radius:999px;text-decoration:none;font-size:.86rem;font-weight:800;box-shadow:0 9px 24px rgba(67,71,125,.18);transition:transform .2s,box-shadow .2s}
-.social-dock a:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(67,71,125,.24)}
-.channel-link{background:linear-gradient(105deg,#a9eaff,#c4b5ff);color:#35345f;border:1px solid rgba(255,255,255,.85)}
-.support-link{background:#20c76a;color:#fff;border:1px solid rgba(255,255,255,.8)}
-.social-dock svg{width:20px;height:20px;flex:0 0 20px}
-@media(max-width:560px){header{padding:34px 16px 39px}main{padding:18px 12px 120px}.card{padding:18px;border-radius:19px}.social-dock{left:12px;right:12px;bottom:12px;align-items:stretch}.social-dock a{justify-content:center;padding:11px 12px;font-size:.82rem}footer{padding-bottom:130px}}
+:root{--sky:#75d5ff;--mauve:#b99aff;--purple:#8964e8;--ink:#25233a;--muted:#77758e;--green:#159b69;--red:#d84c70;--line:#e9e7f5;--glass:rgba(255,255,255,.86)}*{box-sizing:border-box}html{min-height:100%;background:#f7f8ff}body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 8% 4%,rgba(117,213,255,.28),transparent 34%),radial-gradient(ellipse at 92% 12%,rgba(185,154,255,.28),transparent 35%),linear-gradient(145deg,#fbfdff,#f5f3ff 52%,#f9fbff);min-height:100vh}header{position:relative;overflow:hidden;padding:42px 20px 48px;background:linear-gradient(118deg,#a9e9ff,#b9c9ff 48%,#d6b5f4);color:#27243d;border-bottom:1px solid #ffffffcc}header .inner,main{max-width:940px;margin:auto;position:relative;z-index:1}header .inner{text-align:center}h1{margin:0;font-size:clamp(1.8rem,5vw,2.65rem);font-weight:900;letter-spacing:-.055em;background:linear-gradient(95deg,#318fc9,#7772dc 48%,#a35fbd);-webkit-background-clip:text;background-clip:text;color:transparent}header p{margin:10px 0 0;color:#575273;font-weight:600}main{padding:26px 18px 112px}.card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid #fffffff2;border-radius:23px;padding:23px;margin:17px 0;box-shadow:0 14px 40px #6f66ae1a,0 2px 8px #5797c210}h2{font-size:1.22rem;font-weight:800;margin:0 0 15px;background:linear-gradient(95deg,#48acd8,#8875df 58%,#ad72c5);-webkit-background-clip:text;background-clip:text;color:transparent}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:160px}label{display:block;font-weight:700;font-size:.88rem;margin:13px 0 6px;color:#514d70}input,select,button{font:inherit;padding:13px 14px;border-radius:13px;border:1px solid #e1e3f2;width:100%;outline:none}input,select{background:#ffffffe6;color:var(--ink)}button{background:linear-gradient(105deg,#72d6f5,#9da9f5 52%,#bd91e8);color:#252744;border:0;font-weight:800;cursor:pointer;margin-top:12px;box-shadow:0 8px 18px #7e91e133}button.secondary{background:linear-gradient(105deg,#e1f7ff,#eee8ff);color:#5d5b91;border:1px solid #e4e2f5;box-shadow:none}button.danger{background:linear-gradient(105deg,#f7b8cf,#e98aa8);color:#65263f}.muted{color:var(--muted);font-size:.9rem}.hidden{display:none!important}.msg{padding:13px 15px;border-radius:14px;background:#edf7ff;margin:11px 0;overflow-wrap:anywhere}.msg.good{background:#e8f9f1;color:#126c4c}.msg.bad{background:#fff0f4;color:#9c3153}.doc{border:1px solid var(--line);background:#ffffffb8;padding:14px;border-radius:15px;margin:11px 0;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.doc strong{display:block;color:#57549a}.doc small{color:var(--muted)}.doc-actions{display:flex;gap:7px;flex-wrap:wrap}.doc-actions button{width:auto;margin:0;padding:9px 12px}.qr{text-align:center}.qr img{display:block;width:220px;height:220px;max-width:100%;margin:14px auto;background:#fff;border-radius:12px;padding:8px}.verify{font-size:1.08rem}.valid{color:var(--green);font-weight:800}.invalid{color:var(--red);font-weight:800}.badge-verified{display:inline-flex;vertical-align:middle;margin-left:7px;width:21px;height:21px;align-items:center;justify-content:center;background:#1877f2;color:white;clip-path:polygon(50% 0%,61% 8%,76% 5%,84% 18%,98% 27%,94% 43%,100% 56%,91% 68%,91% 83%,75% 87%,65% 100%,50% 93%,35% 100%,25% 87%,9% 83%,9% 68%,0 56%,6% 43%,2% 27%,16% 18%,24% 5%,39% 8%);font-size:13px;font-weight:900}.profile-line{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.profile-pic{width:66px;height:66px;border-radius:50%;object-fit:cover;border:3px solid #a9e9ff;background:#edf7ff}.social-dock{position:fixed;z-index:20;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}.social-dock a{padding:12px 17px;border-radius:999px;text-decoration:none;font-size:.86rem;font-weight:800;box-shadow:0 9px 24px #43477d2e}.channel-link{background:linear-gradient(105deg,#a9eaff,#c4b5ff);color:#35345f}.support-link{background:#20c76a;color:white}footer{text-align:center;color:var(--muted);padding:26px 18px 105px;font-size:.85rem}@media(max-width:560px){header{padding:34px 16px 39px}main{padding:18px 12px 120px}.card{padding:18px;border-radius:19px}.social-dock{left:12px;right:12px;bottom:12px;align-items:stretch}.social-dock a{text-align:center;padding:11px 12px;font-size:.82rem}footer{padding-bottom:130px}}
 </style>
 </head>
 <body>
 <header><div class="inner"><h1>CHRISPIN OFFICIEL</h1><p>Document Verification System</p></div></header>
-<div class="social-dock" aria-label="Liens WhatsApp">
- <a class="channel-link" href="https://whatsapp.com/channel/0029Vadw74J545uoCdV5L91m" target="_blank" rel="noopener noreferrer" aria-label="Rejoindre la chaîne WhatsApp">
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a8.7 8.7 0 0 0-7.45 13.2L3.4 20.6l4.52-1.12A8.7 8.7 0 1 0 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.4c.2-.45.42-.46.7-.46h.45c.15 0 .35.04.48.36l.67 1.6c.08.2.08.36-.04.53l-.5.62c-.14.16-.2.31-.07.54.13.23.59.97 1.28 1.57.88.77 1.62 1.01 1.85 1.12.23.11.37.09.51-.08l.7-.82c.16-.19.33-.22.55-.13l1.52.72c.23.11.38.17.43.27.05.1.05.58-.15 1.12-.2.54-1.16 1.03-1.6 1.08-.42.05-.95.08-1.54-.1-.36-.11-.82-.27-1.42-.54-2.5-1.08-4.13-3.63-4.25-3.8-.12-.17-1-1.33-1-2.54 0-1.21.63-1.8.86-2.06Z" fill="currentColor"/></svg>
-  Rejoindre notre chaîne WhatsApp
- </a>
- <a class="support-link" href="https://wa.me/256770674075" target="_blank" rel="noopener noreferrer" aria-label="Contacter le service client sur WhatsApp">
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a8.7 8.7 0 0 0-7.45 13.2L3.4 20.6l4.52-1.12A8.7 8.7 0 1 0 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 8.5c.2-.4.4-.4.65-.4h.4c.14 0 .31.04.43.32l.62 1.48c.07.18.07.33-.04.49l-.46.56c-.13.15-.18.28-.06.49.12.21.54.9 1.17 1.45.81.71 1.49.93 1.7 1.03.21.1.34.08.47-.07l.64-.75c.15-.17.3-.2.5-.12l1.4.66c.21.1.35.16.4.25.05.09.05.53-.14 1.03-.18.5-1.06.95-1.47.99-.39.05-.87.07-1.42-.09-.33-.1-.75-.25-1.3-.5-2.3-.99-3.8-3.34-3.91-3.5-.11-.16-.92-1.22-.92-2.33 0-1.11.58-1.65.79-1.89Z" fill="currentColor"/></svg>
-  Contacter le service client
- </a>
-</div>
+<div class="social-dock"><a class="channel-link" href="https://whatsapp.com/channel/0029Vadw74J545uoCdV5L91m" target="_blank" rel="noopener noreferrer">Rejoindre notre chaîne WhatsApp</a><a class="support-link" href="https://wa.me/256770674075" target="_blank" rel="noopener noreferrer">Contacter le service client</a></div>
 <main>
 <section id="verifyBox" class="card hidden"><h2>Vérification du document</h2><div id="verifyResult" class="verify">Vérification en cours…</div></section>
 <section id="authBox" class="card"><h2>Connexion administrateur</h2><p class="muted">Connectez-vous pour enregistrer et gérer les documents.</p><label>Adresse e-mail</label><input id="email" type="email" autocomplete="username" placeholder="Votre adresse Gmail"><label>Mot de passe</label><input id="password" type="password" autocomplete="current-password" placeholder="Mot de passe"><button id="loginBtn">Se connecter</button><div id="authMsg"></div></section>
 <section id="adminBox" class="hidden">
-<div class="card"><div class="row" style="align-items:center"><div><h2>Administration</h2><p id="who" class="muted"></p></div><div><button class="secondary" id="logoutBtn">Déconnexion</button></div></div></div>
-<div class="card"><h2>Ajouter un document</h2><label>Numéro du document</label><input id="docNum" placeholder="Ex. DOC-2026-001"><label>Nom / titre du document</label><input id="docName" placeholder="Nom du document"><label>Statut</label><select id="docStatus"><option value="Valid">Valide</option><option value="Suspended">Suspendu</option><option value="Cancelled">Annulé</option></select><button id="saveBtn">Enregistrer le document</button><div id="saveMsg"></div></div>
+<div class="card"><div class="row"><div><h2>Administration <span class="badge-verified" title="Profil administrateur vérifié">✓</span></h2><p id="who" class="muted"></p></div><div><button class="secondary" id="logoutBtn">Déconnexion</button></div></div></div>
+<div class="card"><h2>Photo de profil administrateur</h2><div class="profile-line"><img id="profilePreview" class="profile-pic" alt="Photo de profil" src=""><div style="flex:1"><input id="profileFile" type="file" accept="image/png,image/jpeg,image/webp"><button id="uploadProfileBtn">Enregistrer la photo</button><div id="profileMsg"></div></div></div><p class="muted">Cette photo est indépendante du logo de l’entreprise.</p></div>
+<div class="card"><h2>Ajouter un document</h2><label>Numéro du document</label><input id="docNum" placeholder="Ex. DOC-2026-001"><label>Nom / titre du document</label><input id="docName" placeholder="Nom du document"><label>Statut</label><select id="docStatus"><option value="Valid">Valide</option><option value="Suspended">Suspendu</option><option value="Cancelled">Annulé</option></select><label>Durée de validité</label><select id="expiryChoice"><option value="24h">24 heures</option><option value="2d">2 jours</option><option value="7d">7 jours</option><option value="30d">30 jours</option><option value="90d">3 mois</option><option value="custom">Date personnalisée</option><option value="never">N’expire jamais</option></select><div id="customExpiryBox" class="hidden"><label>Date d’expiration</label><input id="customExpiry" type="datetime-local"></div><button id="saveBtn">Enregistrer le document</button><div id="saveMsg"></div></div>
 <div class="card"><h2>Documents enregistrés</h2><div id="documentsList" class="muted">Chargement…</div></div>
 <div id="qrCard" class="card qr hidden"><h2>QR Code du document</h2><div id="qrCanvas"></div><p id="qrLink" class="muted"></p><button class="secondary" id="closeQr">Fermer</button></div>
-</section>
-</main>
-<footer>Chrispin Officiel · Vérification de documents</footer>
-
+</section></main><footer>Chrispin Officiel · Vérification de documents</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL='https://ickxlowbedvcbslchizj.supabase.co';
 const SUPABASE_KEY='sb_publishable_rT07Rv47_tM6Ek9Krlv3_A_pK1gpsF5';
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const $=id=>document.getElementById(id);
-const msg=(el,text,good=false)=>{el.innerHTML='';let d=document.createElement('div');d.className='msg '+(good?'good':'bad');d.textContent=text;el.appendChild(d)};
-
-async function verify(){
- const token=new URLSearchParams(location.search).get('verify');
- if(!token)return;
- $('verifyBox').classList.remove('hidden');
- $('authBox').classList.add('hidden');
- $('adminBox').classList.add('hidden');
- try{
-  const {data,error}=await sb.rpc('verify_document',{token});
-  if(error)throw error;
-  const d=data?.[0];
-  if(!d){
-   $('verifyResult').innerHTML='<p class="invalid">✖ Document introuvable</p><p>Ce document n’a pas été retrouvé dans le registre.</p>';
-   return;
-  }
-  const valid=String(d.status).toLowerCase()==='valid';
-  $('verifyResult').innerHTML=`<p class="${valid?'valid':'invalid'}">${valid?'✓ DOCUMENT VALIDE':'⚠ DOCUMENT NON VALIDE'}</p><p><b>Numéro :</b> ${escapeHtml(d.document_number||'')}</p><p><b>Document :</b> ${escapeHtml(d.document_name||'')}</p><p><b>Statut :</b> ${escapeHtml(d.status||'')}</p><p class="muted">Enregistré le ${d.created_at?new Date(d.created_at).toLocaleDateString('fr-FR'):''}</p>`;
- }catch(e){
-  $('verifyResult').innerHTML='<div class="msg bad">Vérification impossible. '+escapeHtml(e.message||'Erreur')+'</div>';
- }
-}
-function escapeHtml(s){
- return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-async function showAdmin(user){
- $('authBox').classList.add('hidden');
- $('adminBox').classList.remove('hidden');
- $('who').textContent='Connecté : '+user.email;
- await loadDocs();
-}
-async function loadDocs(){
- const box=$('documentsList');
- box.textContent='Chargement…';
- const {data,error}=await sb.from('documents').select('id,document_number,document_name,status,created_at,verification_token').order('created_at',{ascending:false});
- if(error){box.innerHTML='';msg(box,error.message);return;}
- box.innerHTML='';
- if(!data.length){box.textContent='Aucun document pour le moment.';return;}
- data.forEach(d=>{
-  const div=document.createElement('div');
-  div.className='doc';
-  const left=document.createElement('div');
-  left.innerHTML=`<strong>${escapeHtml(d.document_number)}</strong><small>${escapeHtml(d.document_name)} · ${escapeHtml(d.status)}</small>`;
-  const btn=document.createElement('button');
-  btn.textContent='QR Code';
-  btn.style.width='auto';
-  btn.onclick=()=>makeQr(d);
-  div.append(left,btn);
-  box.appendChild(div);
- });
-}
-
-/* QR Code : l'image est fournie par un service externe, sans dépendre de la bibliothèque QRCode précédente. */
-function makeQr(d){
- const token=d.verification_token;
- $('qrCard').classList.remove('hidden');
- $('qrCanvas').innerHTML='';
- $('qrLink').textContent='';
- if(!token){
-  $('qrCanvas').textContent='Erreur : ce document ne possède pas de jeton de vérification.';
-  return;
- }
- const url=location.origin+location.pathname+'?verify='+encodeURIComponent(token);
- const img=document.createElement('img');
- img.alt='QR Code de vérification';
- img.width=220;
- img.height=220;
- img.referrerPolicy='no-referrer';
- img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);
- img.onload=()=>{$('qrCanvas').appendChild(img);};
- img.onerror=()=>{
-  $('qrCanvas').textContent='Le service de génération du QR Code ne répond pas. Vérifie ta connexion Internet.';
- };
- $('qrLink').textContent=url;
-}
-
-$('loginBtn').onclick=async()=>{
- const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
- if(error){msg($('authMsg'),error.message);return;}
- msg($('authMsg'),'Connexion réussie.',true);
- await showAdmin(data.user);
-};
-$('logoutBtn').onclick=async()=>{await sb.auth.signOut();location.reload();};
-$('saveBtn').onclick=async()=>{
- const n=$('docNum').value.trim(),name=$('docName').value.trim(),status=$('docStatus').value;
- if(!n||!name){msg($('saveMsg'),'Veuillez saisir le numéro et le nom du document.');return;}
- const {data,error}=await sb.from('documents').insert({document_number:n,document_name:name,status}).select('id,document_number,document_name,status,created_at,verification_token').single();
- if(error){msg($('saveMsg'),error.message);return;}
- msg($('saveMsg'),'Document enregistré avec succès.',true);
- $('docNum').value='';
- $('docName').value='';
- await loadDocs();
- makeQr(data);
-};
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const $=id=>document.getElementById(id);
+const msg=(el,text,good=false)=>{el.innerHTML='';const d=document.createElement('div');d.className='msg '+(good?'good':'bad');d.textContent=text;el.appendChild(d)};
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function expiryFromChoice(){const choice=$('expiryChoice').value;if(choice==='never')return null;if(choice==='custom'){const v=$('customExpiry').value;if(!v)throw Error('Choisissez une date d’expiration.');const dt=new Date(v);if(Number.isNaN(dt.getTime())||dt<=new Date())throw Error('La date d’expiration doit être dans le futur.');return dt.toISOString()}const hours={ '24h':24,'2d':48,'7d':168,'30d':720,'90d':2160}[choice];return new Date(Date.now()+hours*3600000).toISOString()}
+$('expiryChoice').onchange=()=> $('customExpiryBox').classList.toggle('hidden',$('expiryChoice').value!=='custom');
+async function verify(){const token=new URLSearchParams(location.search).get('verify');if(!token)return;$('verifyBox').classList.remove('hidden');$('authBox').classList.add('hidden');$('adminBox').classList.add('hidden');try{const {data,error}=await sb.rpc('verify_document_with_expiry',{p_token:token});if(error)throw error;const d=Array.isArray(data)?data[0]:data;if(!d){$('verifyResult').innerHTML='<p class="invalid">✖ Document introuvable</p><p>Ce document n’a pas été retrouvé dans le registre.</p>';return}const expired=Boolean(d.expired)||(d.expires_at&&new Date(d.expires_at)<=new Date());const valid=String(d.status).toLowerCase()==='valid'&&!expired;$('verifyResult').innerHTML=`<p class="${valid?'valid':'invalid'}">${valid?'✓ DOCUMENT VALIDE':'⚠ DOCUMENT NON VALIDE'}</p><p><b>Numéro :</b> ${escapeHtml(d.document_number)}</p><p><b>Document :</b> ${escapeHtml(d.document_name)}</p><p><b>Statut :</b> ${escapeHtml(expired?'Expiré':d.status)}</p>${d.expires_at?`<p><b>Expire le :</b> ${new Date(d.expires_at).toLocaleString('fr-FR')}</p>`:''}<p class="muted">Enregistré le ${d.created_at?new Date(d.created_at).toLocaleDateString('fr-FR'):''}</p>`}catch(e){$('verifyResult').innerHTML='<div class="msg bad">Vérification impossible. '+escapeHtml(e.message||'Erreur')+'</div>'}}
+async function showAdmin(user){$('authBox').classList.add('hidden');$('adminBox').classList.remove('hidden');$('who').textContent='Connecté : '+user.email;await loadProfile(user);await loadDocs()}
+async function loadProfile(user){const {data}=sb.storage.from('admin-profile').getPublicUrl(user.id+'/profile');if(data?.publicUrl)$('profilePreview').src=data.publicUrl+'?t='+Date.now()}
+$('uploadProfileBtn').onclick=async()=>{const file=$('profileFile').files[0];if(!file){msg($('profileMsg'),'Choisissez une image.');return}if(!['image/jpeg','image/png','image/webp'].includes(file.type)){msg($('profileMsg'),'Formats acceptés : JPG, PNG ou WEBP.');return}if(file.size>4*1024*1024){msg($('profileMsg'),'La photo doit faire moins de 4 Mo.');return}const {data:{user}}=await sb.auth.getUser();if(!user){msg($('profileMsg'),'Session administrateur introuvable.');return}const {error}=await sb.storage.from('admin-profile').upload(user.id+'/profile',file,{upsert:true,contentType:file.type});if(error){msg($('profileMsg'),error.message);return}await loadProfile(user);msg($('profileMsg'),'Photo de profil mise à jour.',true)};
+async function loadDocs(){const box=$('documentsList');box.textContent='Chargement…';const {data,error}=await sb.from('documents').select('id,document_number,document_name,status,created_at,verification_token,expires_at').order('created_at',{ascending:false});if(error){box.innerHTML='';msg(box,error.message);return}box.innerHTML='';if(!data?.length){box.textContent='Aucun document pour le moment.';return}data.forEach(d=>{const div=document.createElement('div');div.className='doc';const left=document.createElement('div');const expired=d.expires_at&&new Date(d.expires_at)<=new Date();left.innerHTML=`<strong>${escapeHtml(d.document_number)}</strong><small>${escapeHtml(d.document_name)} · ${escapeHtml(expired?'Expiré':d.status)}${d.expires_at?' · Expire le '+new Date(d.expires_at).toLocaleDateString('fr-FR'):' · Sans expiration'}</small>`;const actions=document.createElement('div');actions.className='doc-actions';const qr=document.createElement('button');qr.textContent='QR Code';qr.onclick=()=>makeQr(d);const toggle=document.createElement('button');toggle.className='secondary';toggle.textContent=String(d.status).toLowerCase()==='suspended'?'Réactiver':'Suspendre';toggle.onclick=()=>toggleStatus(d);const del=document.createElement('button');del.className='danger';del.textContent='Supprimer';del.onclick=()=>deleteDoc(d);actions.append(qr,toggle,del);div.append(left,actions);box.appendChild(div)})}
+async function toggleStatus(d){const suspended=String(d.status).toLowerCase()==='suspended';const next=suspended?'Valid':'Suspended';if(!confirm((suspended?'Réactiver':'Suspendre')+' le document '+d.document_number+' ?'))return;const {error}=await sb.from('documents').update({status:next}).eq('id',d.id);if(error){alert('Erreur : '+error.message);return}await loadDocs()}
+async function deleteDoc(d){if(!confirm('Supprimer définitivement le document '+d.document_number+' ? Son QR code ne pourra plus être vérifié.'))return;const {error}=await sb.from('documents').delete().eq('id',d.id);if(error){alert('Erreur : '+error.message);return}await loadDocs();$('qrCard').classList.add('hidden')}
+function makeQr(d){const token=d.verification_token;$('qrCard').classList.remove('hidden');$('qrCanvas').innerHTML='';$('qrLink').textContent='';if(!token){$('qrCanvas').textContent='Erreur : ce document ne possède pas de jeton de vérification.';return}const url=location.origin+location.pathname+'?verify='+encodeURIComponent(token);const img=document.createElement('img');img.alt='QR Code de vérification';img.width=220;img.height=220;img.referrerPolicy='no-referrer';img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=2&data='+encodeURIComponent(url);img.onerror=()=>{$('qrCanvas').textContent='Le service QR ne répond pas. Vérifiez votre connexion.'};$('qrCanvas').appendChild(img);$('qrLink').textContent=url}
+$('loginBtn').onclick=async()=>{const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){msg($('authMsg'),error.message);return}msg($('authMsg'),'Connexion réussie.',true);await showAdmin(data.user)};
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut();location.reload()};
+$('saveBtn').onclick=async()=>{const n=$('docNum').value.trim(),name=$('docName').value.trim(),status=$('docStatus').value;if(!n||!name){msg($('saveMsg'),'Veuillez saisir le numéro et le nom du document.');return}let expires_at;try{expires_at=expiryFromChoice()}catch(e){msg($('saveMsg'),e.message);return}const {data,error}=await sb.from('documents').insert({document_number:n,document_name:name,status,expires_at}).select('id,document_number,document_name,status,created_at,verification_token,expires_at').single();if(error){msg($('saveMsg'),error.message);return}msg($('saveMsg'),'Document enregistré avec succès.',true);$('docNum').value='';$('docName').value='';await loadDocs();makeQr(data)};
 $('closeQr').onclick=()=>$('qrCard').classList.add('hidden');
-
-(async()=>{
- if(new URLSearchParams(location.search).has('verify')){await verify();return;}
- const {data:{session}}=await sb.auth.getSession();
- if(session?.user)await showAdmin(session.user);
-})();
-</script>
-</body>
-</html>
+(async()=>{if(new URLSearchParams(location.search).has('verify')){await verify();return}const {data:{session}}=await sb.auth.getSession();if(session?.user)await showAdmin(session.user)})();
+</script></body></html>
